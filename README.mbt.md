@@ -1,8 +1,10 @@
 # jmop
 
+[![doc](https://img.shields.io/badge/docs-mooncakes.io-green)](https://mooncakes.io/docs/Yoorkin/jmop)
+
 **Note:** This module is experimental and its API may change in future releases.
 
-**jmop** (JavaScript & MoonBit interOPeration) is an FFI module for MoonBit's js backend that enables safe interaction with JavaScript objects and functions. It emphasizes null and undefined safety, helping you avoid common pitfalls when working with javascript.
+**jmop** (**J**avaScript & **M**oonBit inter**op**eration) is an FFI module for MoonBit's js backend that enables safe interaction with JavaScript objects and functions. It emphasizes null and undefined safety, helping you avoid common pitfalls when working with javascript.
 
 ## Features
 
