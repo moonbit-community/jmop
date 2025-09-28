@@ -1,6 +1,5 @@
 ///|
-pub(open) trait DynCast {
-  as_value(Self) -> Value = _
+pub(open) trait DynCast: IsValue {
   from_value(Value) -> Self raise
 }
 
@@ -10,11 +9,6 @@ suberror DynCastFailed String?
 ///|
 pub fn[T] fail_cast(target? : String) -> T raise DynCastFailed {
   raise DynCastFailed(target)
-}
-
-///|
-impl DynCast with as_value(self) {
-  identity(self)
 }
 
 ///|

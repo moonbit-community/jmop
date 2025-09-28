@@ -16,6 +16,6 @@ test "Promise IsValue implementation" {
   let as_value = promise.as_value()
   inspect(as_value.get_type(), content="object")
   let as_any = promise.as_any()
-  let back_value = as_any.unwrap_value()
+  let back_value = as_any.unwrap()
   inspect(back_value.get_type(), content="object")
 }

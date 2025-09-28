@@ -1,6 +1,9 @@
-///| https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+///|
+/// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 type Function
 
+///|
+pub impl IsAny for Function
 
 ///|
 pub impl IsValue for Function
@@ -21,12 +24,12 @@ pub fn Function::from_code(args : Array[String], functionbody : String) -> Self 
 #callsite(autofill(loc))
 pub fn[F] Function::new(f : F, loc~ : SourceLoc) -> Function raise {
   let f : Any = identity(f)
-  f.unwrap_value(loc~).to_function(loc~)
+  f.unwrap(loc~).to_function(loc~)
 }
 
 ///|
-pub fn Function::apply(f : Self, this : Value, args : Array[&IsValue]) -> Value {
-  ffi_function_apply(f, this.as_value(), args.map(x => x.as_value())).as_value()
+pub fn Function::apply(f : Self, this : Value, args : Array[&IsAny]) -> Any {
+  ffi_function_apply(f, this.as_value(), args.map(x => x.as_any()))
 }
 
 ///|
@@ -55,8 +58,8 @@ extern "js" fn ffi_function_new(
 extern "js" fn ffi_function_apply(
   f : Function,
   this : Value,
-  args : Array[Value],
-) -> Value = "(f,t,args) => f.apply(t,args)"
+  args : Array[Any],
+) -> Any = "(f,t,args) => f.apply(t,args)"
 
 ///|
 extern "js" fn ffi_function_call(f : Function, args : Array[Value]) -> Value = "(f,args) => f.call(args)"

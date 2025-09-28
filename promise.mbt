@@ -2,6 +2,9 @@
 type Promise[T]
 
 ///|
+pub impl[T : IsAny] IsAny for Promise[T]
+
+///|
 pub impl[T : IsValue] IsValue for Promise[T]
 
 ///|
@@ -80,14 +83,14 @@ pub fn[A, B] Promise::bind(
 }
 
 ///|
-pub async fn[A] Promise::wait(x : Self[A]) -> A raise {
+pub async fn[A] Promise::wait(x : Self[A]) -> A {
   suspend(fn(ok, err) {
     ffi_promise_then(identity(x), identity(ok), identity(err))
   })
 }
 
 ///|
-pub fn try_launch(f : async () -> Unit raise) -> Unit noraise {
+pub fn try_launch(f : async () -> Unit) -> Unit noraise {
   run(() => f() catch { e => println(e.to_string()) })
 }
 

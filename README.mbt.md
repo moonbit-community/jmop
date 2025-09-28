@@ -15,8 +15,10 @@
 ## Usage Examples
 
 ```mbt
+///|
 typealias @jmop.(Object, Promise, Function)
 
+///|
 fn init {
   @jmop.global_this.set(
     "test",
@@ -32,10 +34,10 @@ fn init {
     e => println(e)
   }
 }
-
 ```
 
 ```mbt
+///|
 test "object and function" {
   let js_obj = @jmop.global_this.get_object("test")
   let n1 = js_obj.get_number("number1")
@@ -49,6 +51,7 @@ test "object and function" {
 Try the following test by clicking the **Test** button:
 
 ```mbt
+///|
 test "promise" {
   @jmop.try_launch(() => {
     let js_promise = Promise::new(1)
@@ -62,11 +65,14 @@ test "promise" {
 ```
 
 ```mbt
+///|
 test "fail-fast: get undefined field" {
   global_this.get_object("test").get("undefined_obj") |> ignore
 }
 
+///|
 test "fail-fast: create nested promise" {
   @jmop.try_launch(() => Promise::new(Promise::new(1)).wait() |> ignore)
 }
 ```
+

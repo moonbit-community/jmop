@@ -31,7 +31,7 @@ test "Optional::unwrap with undefined throws UnwrapUndefined" {
 
 ///|
 test "Optional::unwrap_value converts Nullable Value" {
-  let value : @jmop.Value = @jmop.Any::from("test").unwrap_value()
+  let value : @jmop.Value = @jmop.Any::from("test").unwrap()
   let nullable : @jmop.Nullable[@jmop.Value] = @jmop.Nullable::from(value)
   let optional : @jmop.Optional[@jmop.Nullable[@jmop.Value]] = @jmop.Optional::from(
     nullable,

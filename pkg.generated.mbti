@@ -1,0 +1,238 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Yoorkin/jmop"
+
+// Values
+#callsite(autofill(loc))
+fn[T : DynCast] dyn_cast(&IsValue, loc~ : SourceLoc) -> T raise
+
+fn[T] fail_cast(target? : String) -> T raise DynCastFailed
+
+let global_this : Object
+
+fn launch(async () -> Unit noraise) -> Unit
+
+fn new(Function, Array[&IsAny]) -> Object raise
+
+fn[T] no_raise(() -> T raise) -> T
+
+fn[T] nullable(T) -> Nullable[T]
+
+fn[T] optional(T) -> Optional[T]
+
+fn try_launch(async () -> Unit) -> Unit
+
+// Errors
+pub suberror ArityMismatch ArityMismatchInfo
+
+type DynCastFailed
+
+pub suberror InvalidCast (SourceLoc, Value, String?)
+impl Show for InvalidCast
+
+pub(all) suberror InvalidField (SourceLoc, Value, String)
+impl Show for InvalidField
+
+pub suberror InvalidNestedPromise SourceLoc
+impl Show for InvalidNestedPromise
+
+pub suberror RuntimeError Value
+
+pub suberror TypeError (SourceLoc, JsTypeError)
+
+pub suberror UnwrapNull SourceLoc
+
+pub suberror UnwrapUndefined SourceLoc
+impl Show for UnwrapUndefined
+
+// Types and methods
+type Any
+fn[T] Any::from(T) -> Self
+fn[T] Any::to_option(Self) -> T?
+#callsite(autofill(loc))
+fn Any::unwrap(Self, loc~ : SourceLoc) -> Value raise
+impl IsAny for Any
+
+pub struct ArityMismatchInfo {
+  function : Function
+  expected : Int
+  provided : Int
+}
+
+type Bigint
+impl IsAny for Bigint
+impl IsValue for Bigint
+
+type Function
+fn Function::apply(Self, Value, Array[&IsAny]) -> Any
+fn Function::bind(Self, Value) -> Self
+fn Function::call(Self, Array[&IsValue]) -> Value
+fn Function::from_code(Array[String], String) -> Self
+fn Function::get_length(Self) -> Int
+fn Function::get_name(Self) -> String
+#callsite(autofill(loc))
+fn[F] Function::new(F, loc~ : SourceLoc) -> Self raise
+impl IsAny for Function
+impl IsStringOrFunctionOrObject for Function
+impl IsValue for Function
+impl Show for Function
+
+pub type JsTypeError
+impl IsAny for JsTypeError
+impl IsObject for JsTypeError
+impl IsValue for JsTypeError
+
+type Nullable[T]
+fn[T] Nullable::from(T) -> Self[T]
+fn[T] Nullable::null() -> Self[T]
+fnalias Nullable::null
+fn[T] Nullable::to_option(Self[T]) -> T?
+#callsite(autofill(loc))
+fn[T] Nullable::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapNull
+#callsite(autofill(loc))
+fn Nullable::unwrap_value(Self[Optional[Value]], loc~ : SourceLoc) -> Value raise
+
+pub type Object
+fn Object::assign(Self, Array[&IsObject]) -> Unit
+#callsite(autofill(loc))
+fn Object::call(Self, &IsStringOrSymbol, Array[&IsAny], loc~ : SourceLoc) -> Any raise
+fn Object::empty() -> Self
+fn Object::freeze(Self) -> Unit
+#callsite(autofill(loc))
+fn Object::get(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Value raise
+#callsite(autofill(loc))
+fn[T : DynCast] Object::get_array(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Array[T] raise
+#callsite(autofill(loc))
+fn Object::get_bigint(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bigint raise
+#callsite(autofill(loc))
+fn Object::get_boolean(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bool raise
+#callsite(autofill(loc))
+fn Object::get_function(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
+#callsite(autofill(loc))
+fn Object::get_method(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
+#callsite(autofill(loc))
+fn Object::get_number(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Double raise
+#callsite(autofill(loc))
+fn Object::get_object(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Self raise
+#callsite(autofill(loc))
+fn Object::get_string(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> String raise
+#callsite(autofill(loc))
+fn Object::get_symbol(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Symbol raise
+fn Object::has_own(Self, &IsStringOrSymbol) -> Bool
+fn Object::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
+#callsite(autofill(loc))
+fn Object::new(Map[String, &IsValue], loc~ : SourceLoc) -> Self raise
+fn Object::seal(Self) -> Unit
+fn Object::self(Self) -> Self
+#callsite(autofill(loc))
+fn Object::set(Self, &IsStringOrSymbol, &IsValue, loc~ : SourceLoc) -> Unit raise
+impl IsAny for Object
+impl IsStringOrFunctionOrObject for Object
+impl IsValue for Object
+
+type Optional[T]
+fn[T] Optional::from(T) -> Self[T]
+fn[T] Optional::from_option(T?) -> Self[T]
+fn[T] Optional::to_option(Self[T]) -> T?
+fn[T] Optional::undefined() -> Self[T]
+fnalias Optional::undefined
+#callsite(autofill(loc))
+fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
+#callsite(autofill(loc))
+fn Optional::unwrap_value(Self[Nullable[Value]], loc~ : SourceLoc) -> Value raise
+impl[T] IsAny for Optional[T]
+
+type Promise[T]
+fn[A, B] Promise::bind(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
+fn[A, B] Promise::catch_(Self[A], (Error) -> Self[B]) -> Self[B]
+#callsite(autofill(loc))
+fn[A, B] Promise::map(Self[A], (A) -> B raise, loc~ : SourceLoc) -> Self[B]
+#callsite(autofill(loc))
+fn[A] Promise::new(A, loc~ : SourceLoc) -> Self[A]
+fn[A] Promise::reject(Error) -> Self[A]
+fn[A] Promise::resolve(A) -> Self[A]
+fn[A, B] Promise::then(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
+async fn[A] Promise::wait(Self[A]) -> A
+impl[T : IsAny] IsAny for Promise[T]
+impl[T : IsValue] IsValue for Promise[T]
+
+type Symbol
+impl IsAny for Symbol
+impl IsSymbol for Symbol
+impl IsValue for Symbol
+
+pub type Value
+fn Value::as_any(Self) -> Any
+fn Value::as_value(Self) -> Self
+fn Value::get_type(Self) -> String
+fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
+#callsite(autofill(loc))
+fn[T : DynCast] Value::to_array(Self, loc~ : SourceLoc) -> Array[T] raise
+#callsite(autofill(loc))
+fn Value::to_bigint(Self, loc~ : SourceLoc) -> Bigint raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_boolean(Self, loc~ : SourceLoc) -> Bool raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_function(Self, loc~ : SourceLoc) -> Function raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_number(Self, loc~ : SourceLoc) -> Double raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_object(Self, loc~ : SourceLoc) -> Object raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_string(Self, loc~ : SourceLoc) -> String raise InvalidCast
+#callsite(autofill(loc))
+fn Value::to_symbol(Self, loc~ : SourceLoc) -> Symbol raise InvalidCast
+impl DynCast for Value
+impl IsAny for Value
+impl IsValue for Value
+impl Show for Value
+
+// Type aliases
+
+// Traits
+pub(open) trait DynCast : IsValue {
+  from_value(Value) -> Self raise
+}
+impl DynCast for Bool
+impl DynCast for Int
+impl DynCast for Double
+impl DynCast for String
+impl[T : DynCast] DynCast for Array[T]
+
+pub(open) trait IsAny {
+  as_any(Self) -> Any = _
+}
+impl IsAny for Unit
+impl IsAny for Bool
+impl IsAny for Int
+impl IsAny for Double
+impl IsAny for String
+impl[T : IsAny] IsAny for Array[T]
+
+pub trait IsObject : IsValue {
+}
+
+pub trait IsString : IsValue {
+}
+impl IsString for String
+
+pub trait IsStringOrFunctionOrObject : IsValue {
+}
+impl IsStringOrFunctionOrObject for String
+
+pub trait IsStringOrSymbol : IsString + IsSymbol {
+}
+impl IsStringOrSymbol for String
+
+pub(open) trait IsSymbol {
+}
+
+pub(open) trait IsValue : IsAny {
+  as_value(Self) -> Value = _
+}
+impl IsValue for Unit
+impl IsValue for Bool
+impl IsValue for Int
+impl IsValue for Double
+impl IsValue for String
+impl[T : IsValue] IsValue for Array[T]
+

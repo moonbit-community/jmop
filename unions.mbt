@@ -1,11 +1,19 @@
-///| String | Symbol
+///|
+/// String | Symbol
 pub trait IsStringOrSymbol: IsString + IsSymbol {}
 
 ///|
 pub impl IsStringOrSymbol for String
 
-///| Function | Object
-pub trait IsFunctionOrObject : IsValue {}
-pub impl IsFunctionOrObject for Function
-pub impl IsFunctionOrObject for Object
+///|
+/// Function | Object
+pub trait IsStringOrFunctionOrObject: IsValue {}
 
+///|
+pub impl IsStringOrFunctionOrObject for Function
+
+///|
+pub impl IsStringOrFunctionOrObject for Object
+
+///|
+pub impl IsStringOrFunctionOrObject for String

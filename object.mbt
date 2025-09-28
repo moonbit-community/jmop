@@ -5,6 +5,9 @@
 pub type Object
 
 ///|
+pub impl IsAny for Object
+
+///|
 pub impl IsValue for Object
 
 ///|
@@ -170,11 +173,24 @@ pub fn Object::get_method(
 #callsite(autofill(loc))
 pub fn Object::call(
   self : Self,
-  method : &IsStringOrSymbol,
-  args : Array[&IsValue],
+  method_ : &IsStringOrSymbol,
+  args : Array[&IsAny],
   loc~ : SourceLoc,
-) -> Value raise {
-  self.get(method, loc~).to_function(loc~).apply(self.as_value(), args)
+) -> Any raise {
+  self.get(method_, loc~).to_function(loc~).apply(self.as_value(), args)
+}
+
+///|
+pub fn Object::instance_of(
+  self : Self,
+  ctor : &IsStringOrFunctionOrObject,
+) -> Bool {
+  let ctor = ctor.as_value()
+  let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
+    InvalidCast(_) => ctor
+    _ => panic()
+  }
+  ffi_instanceof(self.as_any(), ctor)
 }
 
 ///|

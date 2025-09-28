@@ -3,10 +3,12 @@
 pub type Value
 
 ///|
-pub(open) trait IsValue {
+pub(open) trait IsValue: IsAny {
   as_value(Self) -> Value = _
-  as_any(Self) -> Any = _
 }
+
+///|
+pub impl IsAny for Value
 
 ///|
 pub impl IsValue for Value
@@ -40,11 +42,6 @@ impl IsValue with as_value(self) {
 }
 
 ///|
-impl IsValue with as_any(self) {
-  identity(self)
-}
-
-///|
 pub fn Value::as_any(self : Self) -> Any {
   identity(self)
 }
@@ -63,7 +60,7 @@ pub fn Value::to_number(
   if self.get_type() == "number" {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("Double")))
+    raise InvalidCast((loc, self.as_value(), Some("Double")))
   }
 }
 
@@ -76,7 +73,7 @@ pub fn Value::to_string(
   if self.get_type() is "string" {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("String")))
+    raise InvalidCast((loc, self.as_value(), Some("String")))
   }
 }
 
@@ -89,7 +86,7 @@ pub fn Value::to_object(
   if self.get_type() == "object" && !ffi_object_is_null(self.as_any()) {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("Object")))
+    raise InvalidCast((loc, self.as_value(), Some("Object")))
   }
 }
 
@@ -102,7 +99,7 @@ pub fn Value::to_bigint(
   if self.get_type() == "bigint" {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("Bigint")))
+    raise InvalidCast((loc, self.as_value(), Some("Bigint")))
   }
 }
 
@@ -115,7 +112,7 @@ pub fn Value::to_symbol(
   if self.get_type() == "symbol" {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("Symbol")))
+    raise InvalidCast((loc, self.as_value(), Some("Symbol")))
   }
 }
 
@@ -128,7 +125,7 @@ pub fn Value::to_function(
   if self.get_type() == "function" {
     identity(self)
   } else {
-    raise InvalidCast((loc, (self.as_value()), Some("Function")))
+    raise InvalidCast((loc, self.as_value(), Some("Function")))
   }
 }
 
@@ -165,8 +162,16 @@ pub fn Value::get_type(self : Self) -> String {
 }
 
 ///|
-pub fn Value::instance_of(self : Self, ctor : &IsFunctionOrObject) -> Bool {
-  ffi_instanceof(self.as_any(), ctor.as_value())
+pub fn Value::instance_of(
+  self : Self,
+  ctor : &IsStringOrFunctionOrObject,
+) -> Bool {
+  let ctor = ctor.as_value()
+  let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
+    InvalidCast(_) => ctor
+    _ => panic()
+  }
+  ffi_instanceof(self.as_any(), ctor)
 }
 
 ///|

@@ -5,17 +5,17 @@ pub let global_this : Object = ffi_global_this()
 extern "js" fn ffi_global_this() -> Object = "() => globalThis"
 
 ///|
-suberror ArityMismatch ArityMismatchInfo
+pub suberror ArityMismatch ArityMismatchInfo
 
 ///|
-struct ArityMismatchInfo {
+pub struct ArityMismatchInfo {
   function : Function
   expected : Int
   provided : Int
 }
 
-///| 
-pub fn new(ctor : Function, args : Array[&IsValue]) -> Object raise {
+///|
+pub fn new(ctor : Function, args : Array[&IsAny]) -> Object raise {
   guard ctor.get_length() == args.length() else {
     raise ArityMismatch({
       function: ctor,
@@ -23,11 +23,12 @@ pub fn new(ctor : Function, args : Array[&IsValue]) -> Object raise {
       provided: args.length(),
     })
   }
-  ffi_new(ctor, args.map(x => x.as_value()))
+  ffi_new(ctor, args.map(x => x.as_any()))
 }
 
 ///|
-pub fn[T] assert_noraise(f : () -> T raise) -> T {
+#inline
+pub fn[T] no_raise(f : () -> T raise) -> T {
   f() catch {
     e => {
       println(e)
@@ -37,4 +38,4 @@ pub fn[T] assert_noraise(f : () -> T raise) -> T {
 }
 
 ///|
-extern "js" fn ffi_new(ctor : Function, args : Array[Value]) -> Object = "(ctor, args) => new ctor(...args)"
+extern "js" fn ffi_new(ctor : Function, args : Array[Any]) -> Object = "(ctor, args) => new ctor(...args)"

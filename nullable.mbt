@@ -37,12 +37,13 @@ pub fn[T] Nullable::null() -> Nullable[T] {
   identity(ffi_null())
 }
 
-///| Convert Nullable to a boxed Option
+///|
+/// Convert Nullable to a boxed Option
 pub fn[T] Nullable::to_option(self : Self[T]) -> T? {
   if ffi_object_is_null(identity(self)) {
-    Some(identity(self))
-  } else {
     None
+  } else {
+    Some(identity(self))
   }
 }
 

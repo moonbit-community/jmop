@@ -60,7 +60,7 @@ fn convert_thrown_error(
   ignore(payload1)
   match x {
     "InvalidNestedPromise" =>
-      raise InvalidNestedPromise(identity(payload0.unwrap_value()))
+      raise InvalidNestedPromise(identity(payload0.unwrap()))
     _ => raise RuntimeError(identity(payload0))
   }
 }
