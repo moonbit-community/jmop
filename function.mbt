@@ -1,12 +1,6 @@
 ///| https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 type Function
 
-///|
-pub(open) trait IsFunction: IsValue {
-  apply(Self, Value, Array[Value]) -> Value
-  call(Self, Array[Value]) -> Value
-  bind(Self, Value) -> Function
-}
 
 ///|
 pub impl IsValue for Function

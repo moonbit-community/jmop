@@ -63,7 +63,7 @@ pub fn Value::to_number(
   if self.get_type() == "number" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Double"))
+    raise InvalidCast((loc, (self.as_value()), Some("Double")))
   }
 }
 
@@ -76,7 +76,7 @@ pub fn Value::to_string(
   if self.get_type() is "string" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "String"))
+    raise InvalidCast((loc, (self.as_value()), Some("String")))
   }
 }
 
@@ -89,7 +89,7 @@ pub fn Value::to_object(
   if self.get_type() == "object" && !ffi_object_is_null(self.as_any()) {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Object"))
+    raise InvalidCast((loc, (self.as_value()), Some("Object")))
   }
 }
 
@@ -102,7 +102,7 @@ pub fn Value::to_bigint(
   if self.get_type() == "bigint" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Bigint"))
+    raise InvalidCast((loc, (self.as_value()), Some("Bigint")))
   }
 }
 
@@ -115,7 +115,7 @@ pub fn Value::to_symbol(
   if self.get_type() == "symbol" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Symbol"))
+    raise InvalidCast((loc, (self.as_value()), Some("Symbol")))
   }
 }
 
@@ -128,7 +128,7 @@ pub fn Value::to_function(
   if self.get_type() == "function" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Function"))
+    raise InvalidCast((loc, (self.as_value()), Some("Function")))
   }
 }
 
@@ -141,7 +141,7 @@ pub fn Value::to_boolean(
   if self.get_type() == "boolean" {
     identity(self)
   } else {
-    raise InvalidCast((loc, self.as_value(), "Bool"))
+    raise InvalidCast((loc, self.as_value(), Some("Bool")))
   }
 }
 
@@ -150,12 +150,12 @@ pub fn Value::to_boolean(
 pub fn[T : DynCast] Value::to_array(
   self : Self,
   loc~ : SourceLoc,
-) -> Array[T] raise InvalidCast {
+) -> Array[T] raise {
   if ffi_is_array(self) {
     let arr : Array[Value] = identity(self)
-    arr.map(x => DynCast::from_value(x).rethrow())
+    arr.map(x => dyn_cast(x))
   } else {
-    raise InvalidCast((loc, self.as_value(), "Array"))
+    raise InvalidCast((loc, self.as_value(), Some("Array")))
   }
 }
 

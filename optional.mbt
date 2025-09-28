@@ -38,6 +38,23 @@ pub fn[T] Optional::undefined() -> Optional[T] {
 }
 
 ///|
+pub fn[T] Optional::to_option(self : Self[T]) -> T? {
+  if ffi_is_undefined(identity(self)) {
+    None
+  } else {
+    Some(identity(self))
+  }
+}
+
+///|
+pub fn[T] Optional::from_option(opt : T?) -> Self[T] {
+  match opt {
+    None => undefined()
+    Some(x) => identity(x)
+  }
+}
+
+///|
 pub fnalias Optional::(from as optional, undefined)
 
 ///|
