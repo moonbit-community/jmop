@@ -3,6 +3,11 @@
 struct Any(Optional[Nullable[Value]])
 
 ///|
+pub impl Show for Any with output(self, buf) {
+  buf.write_string(ffi_to_string(identity(self)))
+}
+
+///|
 pub(open) trait IsAny {
   as_any(Self) -> Any = _
 }
