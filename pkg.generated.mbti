@@ -2,6 +2,10 @@
 package "Yoorkin/jmop"
 
 // Values
+fn[T] catch_error(() -> T, (Error_) -> T raise?) -> T raise?
+
+fn[T] convert_error(SourceLoc, () -> T) -> T raise
+
 #callsite(autofill(loc))
 fn[T : DynCast] dyn_cast(&IsValue, loc~ : SourceLoc) -> T raise
 
@@ -22,11 +26,32 @@ fn[T] optional(T) -> Optional[T]
 fn try_launch(async () -> Unit) -> Unit
 
 // Errors
+pub suberror AggregateError Error_
+impl IsAny for AggregateError
+impl IsError for AggregateError
+impl IsObject for AggregateError
+impl IsValue for AggregateError
+impl Show for AggregateError
+
 pub suberror ArityMismatch ArityMismatchInfo
 
 type DynCastFailed
 
-pub suberror InvalidCast (SourceLoc, Value, String?)
+pub suberror EvalError Error_
+impl IsAny for EvalError
+impl IsError for EvalError
+impl IsObject for EvalError
+impl IsValue for EvalError
+impl Show for EvalError
+
+pub suberror InternalError Error_
+impl IsAny for InternalError
+impl IsError for InternalError
+impl IsObject for InternalError
+impl IsValue for InternalError
+impl Show for InternalError
+
+pub(all) suberror InvalidCast (SourceLoc, Value, String?)
 impl Show for InvalidCast
 
 pub(all) suberror InvalidField (SourceLoc, Value, String)
@@ -35,9 +60,42 @@ impl Show for InvalidField
 pub suberror InvalidNestedPromise SourceLoc
 impl Show for InvalidNestedPromise
 
+pub suberror RangeError Error_
+impl IsAny for RangeError
+impl IsError for RangeError
+impl IsObject for RangeError
+impl IsValue for RangeError
+impl Show for RangeError
+
+pub suberror ReferenceError Error_
+impl IsAny for ReferenceError
+impl IsError for ReferenceError
+impl IsObject for ReferenceError
+impl IsValue for ReferenceError
+impl Show for ReferenceError
+
 pub suberror RuntimeError Value
 
-pub suberror TypeError (SourceLoc, JsTypeError)
+pub suberror SyntaxError Error_
+impl IsAny for SyntaxError
+impl IsError for SyntaxError
+impl IsObject for SyntaxError
+impl IsValue for SyntaxError
+impl Show for SyntaxError
+
+pub suberror TypeError Error_
+impl IsAny for TypeError
+impl IsError for TypeError
+impl IsObject for TypeError
+impl IsValue for TypeError
+impl Show for TypeError
+
+pub suberror URIError Error_
+impl IsAny for URIError
+impl IsError for URIError
+impl IsObject for URIError
+impl IsValue for URIError
+impl Show for URIError
 
 pub suberror UnwrapNull SourceLoc
 
@@ -47,10 +105,11 @@ impl Show for UnwrapUndefined
 // Types and methods
 type Any
 fn[T] Any::from(T) -> Self
-fn[T] Any::to_option(Self) -> T?
+fn[T : DynCast] Any::to_option(Self) -> T?
 #callsite(autofill(loc))
 fn Any::unwrap(Self, loc~ : SourceLoc) -> Value raise
 impl IsAny for Any
+impl Show for Any
 
 pub struct ArityMismatchInfo {
   function : Function
@@ -61,6 +120,16 @@ pub struct ArityMismatchInfo {
 type Bigint
 impl IsAny for Bigint
 impl IsValue for Bigint
+
+type Error_
+fn Error_::new(String, cause? : Any) -> Self
+fn Error_::new_with_loc(String, SourceLoc) -> Self
+impl DynCast for Error_
+impl IsAny for Error_
+impl IsError for Error_
+impl IsObject for Error_
+impl IsValue for Error_
+impl Show for Error_
 
 type Function
 fn Function::apply(Self, Value, Array[&IsAny]) -> Any
@@ -172,6 +241,8 @@ fn Value::to_bigint(Self, loc~ : SourceLoc) -> Bigint raise InvalidCast
 #callsite(autofill(loc))
 fn Value::to_boolean(Self, loc~ : SourceLoc) -> Bool raise InvalidCast
 #callsite(autofill(loc))
+fn Value::to_error(Self, loc~ : SourceLoc) -> Error_ raise InvalidCast
+#callsite(autofill(loc))
 fn Value::to_function(Self, loc~ : SourceLoc) -> Function raise InvalidCast
 #callsite(autofill(loc))
 fn Value::to_number(Self, loc~ : SourceLoc) -> Double raise InvalidCast
@@ -207,6 +278,15 @@ impl IsAny for Int
 impl IsAny for Double
 impl IsAny for String
 impl[T : IsAny] IsAny for Array[T]
+
+pub trait IsError : IsObject {
+  as_error(Self) -> Error_
+  get_name(Self) -> String
+  get_message(Self) -> String
+  get_cause(Self) -> Any
+  get_source_loc(Self) -> SourceLoc?
+  set_source_loc(Self, SourceLoc) -> Unit
+}
 
 pub trait IsObject : IsValue {
 }

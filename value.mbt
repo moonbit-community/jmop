@@ -92,6 +92,19 @@ pub fn Value::to_object(
 
 ///|
 #callsite(autofill(loc))
+pub fn Value::to_error(
+  self : Self,
+  loc~ : SourceLoc,
+) -> Error_ raise InvalidCast {
+  if self.instance_of("Error") {
+    identity(self)
+  } else {
+    raise InvalidCast((loc, self.as_value(), Some("Error")))
+  }
+}
+
+///|
+#callsite(autofill(loc))
 pub fn Value::to_bigint(
   self : Self,
   loc~ : SourceLoc,

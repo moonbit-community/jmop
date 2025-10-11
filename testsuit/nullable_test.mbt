@@ -9,7 +9,7 @@ test "Nullable from creates non-null Nullable" {
 test "Nullable null creates null Nullable" {
   let null_value : @jmop.Nullable[Int] = @jmop.Nullable::null()
   let option : Int? = null_value.to_option()
-  inspect(option, content="Some(0)")
+  inspect(option, content="None")
 }
 
 ///|
@@ -18,8 +18,8 @@ test "Nullable to_option converts to Option" {
   let nullable_none : @jmop.Nullable[Int] = @jmop.Nullable::null()
   let option_some : Int? = nullable_some.to_option()
   let option_none : Int? = nullable_none.to_option()
-  inspect(option_some, content="None")
-  inspect(option_none, content="Some(0)")
+  inspect(option_some, content="Some(42)")
+  inspect(option_none, content="None")
 }
 
 ///|

@@ -64,9 +64,9 @@ pub fn Object::set(
   v : &IsValue,
   loc~ : SourceLoc,
 ) -> Unit raise {
-  ffi_object_set(self.as_value(), k.as_any(), v.as_any()).failwith(x => raise TypeError(
-    (loc, x),
-  ))
+  convert_error(loc, fn() {
+    ffi_object_set(self.as_value(), k.as_any(), v.as_any())
+  })
 }
 
 ///|
@@ -197,19 +197,7 @@ pub fn Object::instance_of(
 extern "js" fn ffi_object_get(obj : Value, prop : Any) -> Any = "(obj, prop) => obj[prop]"
 
 ///|
-extern "js" fn ffi_object_set(
-  obj : Value,
-  prop : Any,
-  value : Any,
-) -> Result[Unit, JsTypeError] =
-  #|(obj, prop, value) => {
-  #|  try {
-  #|    obj[prop] = value;
-  #|    return MoonBit.Result.Ok({})
-  #|  } catch(e) {
-  #|    return MoonBit.Result.Err(e)
-  #|  }
-  #|}
+extern "js" fn ffi_object_set(obj : Value, prop : Any, value : Any) -> Unit = "(obj, prop, value) => obj[prop] = value"
 
 ///|
 extern "js" fn ffi_object_has_own(obj : Value, prop : Value) -> Bool = "(obj, prop) => Object.hasOwn(obj, prop)"

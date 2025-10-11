@@ -52,10 +52,9 @@ pub fn Any::unwrap(x : Self, loc~ : SourceLoc) -> Value raise {
 }
 
 ///|
-pub fn[T] Any::to_option(self : Self) -> T? {
-  if ffi_is_undefined(identity(self)) || ffi_object_is_null(identity(self)) {
-    None
-  } else {
-    Some(identity(self))
+pub fn[T : DynCast] Any::to_option(self : Self) -> T? {
+  Some(DynCast::from_value(self.unwrap())) catch {
+    UnwrapNull(_) | UnwrapUndefined(_) => None
+    _ => None
   }
 }
