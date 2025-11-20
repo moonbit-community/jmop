@@ -16,7 +16,7 @@
 
 ```mbt
 ///|
-typealias @jmop.(Object, Promise, Function)
+using @jmop {type Object, type Promise, type Function}
 
 ///|
 fn init {

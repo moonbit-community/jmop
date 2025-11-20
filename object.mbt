@@ -76,7 +76,7 @@ pub fn Object::get(
   prop : &IsStringOrSymbol,
   loc~ : SourceLoc,
 ) -> Value raise {
-  ffi_object_get(self.as_value(), prop.as_any()).inner().unwrap_value(loc~)
+  ffi_object_get(self.as_value(), prop.as_any()).0.unwrap_value(loc~)
 }
 
 ///|
@@ -187,9 +187,9 @@ pub fn Object::instance_of(
 ) -> Bool {
   let ctor = ctor.as_value()
   let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
-    InvalidCast(_) => ctor
-    _ => panic()
-  }
+      InvalidCast(_) => ctor
+      _ => panic()
+    }
   ffi_instanceof(self.as_any(), ctor)
 }
 

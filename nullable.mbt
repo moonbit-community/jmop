@@ -28,11 +28,13 @@ pub fn Nullable::unwrap_value(
 }
 
 ///|
+#as_free_fn(nullable)
 pub fn[T] Nullable::from(x : T) -> Nullable[T] {
   identity(x)
 }
 
 ///|
+#as_free_fn(null)
 pub fn[T] Nullable::null() -> Nullable[T] {
   identity(ffi_null())
 }
@@ -46,9 +48,6 @@ pub fn[T] Nullable::to_option(self : Self[T]) -> T? {
     Some(identity(self))
   }
 }
-
-///|
-pub fnalias Nullable::(from as nullable, null)
 
 ///|
 extern "js" fn ffi_object_is_null(x : Any) -> Bool = "(x) => x === null"

@@ -181,9 +181,9 @@ pub fn Value::instance_of(
 ) -> Bool {
   let ctor = ctor.as_value()
   let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
-    InvalidCast(_) => ctor
-    _ => panic()
-  }
+      InvalidCast(_) => ctor
+      _ => panic()
+    }
   ffi_instanceof(self.as_any(), ctor)
 }
 
