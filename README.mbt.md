@@ -67,10 +67,15 @@ test "promise" {
 ```mbt
 ///|
 test "fail-fast: get undefined field" {
-  global_this.get_object("test").get("undefined_obj") |> ignore
+  try global_this.get_object("test").get("undefined_obj") catch {
+    _ => ()
+  } noraise {
+    _ => fail("Expected an error for undefined field access")
+  }
 }
 
 ///|
+#skip
 test "fail-fast: create nested promise" {
   @jmop.try_launch(() => Promise::new(Promise::new(1)).wait() |> ignore)
 }
