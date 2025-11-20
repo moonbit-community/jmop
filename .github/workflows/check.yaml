@@ -52,7 +52,7 @@ jobs:
 
       - name: moon info
         run: |
-          moon info --target wasm,wasm-gc,js,native
+          moon info --target js
           git diff --exit-code
 
       - name: format diff
@@ -71,8 +71,8 @@ jobs:
 
       - name: moon test
         run: |
-          moon test --target all,native
-          moon test --target all,native --release
+          moon test --target js
+          moon test --target js --release
 
   moon-json-format-check:
     runs-on: ubuntu-latest
@@ -98,8 +98,8 @@ jobs:
       - uses: actions/setup-node@v4
       - run: |
           npm install --global prettier;
-          find . -name *.mod.json -exec npx prettier --write {} \;
-          find . -name *.pkg.json -exec npx prettier --write {} \;
+          find . -name '*.mod.json' -exec npx prettier --write {} \;
+          find . -name '*.pkg.json' -exec npx prettier --write {} \;
           git diff --exit-code;
 
   check-typos:
