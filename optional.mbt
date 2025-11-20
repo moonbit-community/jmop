@@ -31,11 +31,13 @@ pub fn Optional::unwrap_value(
 }
 
 ///|
+#as_free_fn(optional)
 pub fn[T] Optional::from(x : T) -> Optional[T] {
   identity(x)
 }
 
 ///|
+#as_free_fn(undefined)
 pub fn[T] Optional::undefined() -> Optional[T] {
   identity(ffi_undefined())
 }
@@ -56,9 +58,6 @@ pub fn[T] Optional::from_option(opt : T?) -> Self[T] {
     Some(x) => identity(x)
   }
 }
-
-///|
-pub fnalias Optional::(from as optional, undefined)
 
 ///|
 extern "js" fn ffi_is_undefined(x : Any) -> Bool = "(x) => x === undefined"

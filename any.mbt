@@ -48,7 +48,7 @@ pub fn[T] Any::from(x : T) -> Any {
 /// Otherwise, raises an `UnwrapUndefined` or `UnwrapNull` error.
 #callsite(autofill(loc))
 pub fn Any::unwrap(x : Self, loc~ : SourceLoc) -> Value raise {
-  x.inner().unwrap_value(loc~)
+  x.0.unwrap_value(loc~)
 }
 
 ///|

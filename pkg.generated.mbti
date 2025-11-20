@@ -19,10 +19,6 @@ fn new(Function, Array[&IsAny]) -> Object raise
 
 fn[T] no_raise(() -> T raise) -> T
 
-fn[T] nullable(T) -> Nullable[T]
-
-fn[T] optional(T) -> Optional[T]
-
 fn try_launch(async () -> Unit) -> Unit
 
 // Errors
@@ -151,9 +147,10 @@ impl IsObject for JsTypeError
 impl IsValue for JsTypeError
 
 type Nullable[T]
+#as_free_fn(nullable)
 fn[T] Nullable::from(T) -> Self[T]
+#as_free_fn(null)
 fn[T] Nullable::null() -> Self[T]
-fnalias Nullable::null
 fn[T] Nullable::to_option(Self[T]) -> T?
 #callsite(autofill(loc))
 fn[T] Nullable::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapNull
@@ -199,11 +196,12 @@ impl IsStringOrFunctionOrObject for Object
 impl IsValue for Object
 
 type Optional[T]
+#as_free_fn(optional)
 fn[T] Optional::from(T) -> Self[T]
 fn[T] Optional::from_option(T?) -> Self[T]
 fn[T] Optional::to_option(Self[T]) -> T?
+#as_free_fn(undefined)
 fn[T] Optional::undefined() -> Self[T]
-fnalias Optional::undefined
 #callsite(autofill(loc))
 fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
 #callsite(autofill(loc))
