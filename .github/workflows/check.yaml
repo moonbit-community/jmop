@@ -6,7 +6,7 @@ on:
     branches:
       - master
       - main
-      
+
   pull_request:
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
             triple: arm64-apple-darwin
           - name: windows-latest
             triple: x86_64-w64-mingw32
-          
+
       fail-fast: false
     runs-on: ${{ matrix.os.name }}
     continue-on-error: false
@@ -29,10 +29,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      
+
       - name: Setup Moon
         uses: illusory0x0/setup-moonbit@v0.1.0
-        with: 
+        with:
           version: ${{ matrix.version }}
 
       - name: moon version
