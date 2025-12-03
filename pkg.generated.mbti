@@ -2,110 +2,110 @@
 package "Yoorkin/jmop"
 
 // Values
-fn[T] catch_error(() -> T, (Error_) -> T raise?) -> T raise?
+pub fn[T] catch_error(() -> T, (Error_) -> T raise?) -> T raise?
 
-fn[T] convert_error(SourceLoc, () -> T) -> T raise
+pub fn[T] convert_error(SourceLoc, () -> T) -> T raise
 
 #callsite(autofill(loc))
-fn[T : DynCast] dyn_cast(&IsValue, loc~ : SourceLoc) -> T raise
+pub fn[T : DynCast] dyn_cast(&IsValue, loc~ : SourceLoc) -> T raise
 
-fn[T] fail_cast(target? : String) -> T raise DynCastFailed
+pub fn[T] fail_cast(target? : String) -> T raise DynCastFailed
 
-let global_this : Object
+pub let global_this : Object
 
-fn launch(async () -> Unit noraise) -> Unit
+pub fn launch(async () -> Unit noraise) -> Unit
 
-fn new(Function, Array[&IsAny]) -> Object raise
+pub fn new(Function, Array[&IsAny]) -> Object raise
 
-fn[T] no_raise(() -> T raise) -> T
+pub fn[T] no_raise(() -> T raise) -> T
 
-fn try_launch(async () -> Unit) -> Unit
+pub fn try_launch(async () -> Unit) -> Unit
 
 // Errors
 pub suberror AggregateError Error_
-impl IsAny for AggregateError
-impl IsError for AggregateError
-impl IsObject for AggregateError
-impl IsValue for AggregateError
-impl Show for AggregateError
+pub impl IsAny for AggregateError
+pub impl IsError for AggregateError
+pub impl IsObject for AggregateError
+pub impl IsValue for AggregateError
+pub impl Show for AggregateError
 
 pub suberror ArityMismatch ArityMismatchInfo
 
 type DynCastFailed
 
 pub suberror EvalError Error_
-impl IsAny for EvalError
-impl IsError for EvalError
-impl IsObject for EvalError
-impl IsValue for EvalError
-impl Show for EvalError
+pub impl IsAny for EvalError
+pub impl IsError for EvalError
+pub impl IsObject for EvalError
+pub impl IsValue for EvalError
+pub impl Show for EvalError
 
 pub suberror InternalError Error_
-impl IsAny for InternalError
-impl IsError for InternalError
-impl IsObject for InternalError
-impl IsValue for InternalError
-impl Show for InternalError
+pub impl IsAny for InternalError
+pub impl IsError for InternalError
+pub impl IsObject for InternalError
+pub impl IsValue for InternalError
+pub impl Show for InternalError
 
 pub(all) suberror InvalidCast (SourceLoc, Value, String?)
-impl Show for InvalidCast
+pub impl Show for InvalidCast
 
 pub(all) suberror InvalidField (SourceLoc, Value, String)
-impl Show for InvalidField
+pub impl Show for InvalidField
 
 pub suberror InvalidNestedPromise SourceLoc
-impl Show for InvalidNestedPromise
+pub impl Show for InvalidNestedPromise
 
 pub suberror RangeError Error_
-impl IsAny for RangeError
-impl IsError for RangeError
-impl IsObject for RangeError
-impl IsValue for RangeError
-impl Show for RangeError
+pub impl IsAny for RangeError
+pub impl IsError for RangeError
+pub impl IsObject for RangeError
+pub impl IsValue for RangeError
+pub impl Show for RangeError
 
 pub suberror ReferenceError Error_
-impl IsAny for ReferenceError
-impl IsError for ReferenceError
-impl IsObject for ReferenceError
-impl IsValue for ReferenceError
-impl Show for ReferenceError
+pub impl IsAny for ReferenceError
+pub impl IsError for ReferenceError
+pub impl IsObject for ReferenceError
+pub impl IsValue for ReferenceError
+pub impl Show for ReferenceError
 
 pub suberror RuntimeError Value
 
 pub suberror SyntaxError Error_
-impl IsAny for SyntaxError
-impl IsError for SyntaxError
-impl IsObject for SyntaxError
-impl IsValue for SyntaxError
-impl Show for SyntaxError
+pub impl IsAny for SyntaxError
+pub impl IsError for SyntaxError
+pub impl IsObject for SyntaxError
+pub impl IsValue for SyntaxError
+pub impl Show for SyntaxError
 
 pub suberror TypeError Error_
-impl IsAny for TypeError
-impl IsError for TypeError
-impl IsObject for TypeError
-impl IsValue for TypeError
-impl Show for TypeError
+pub impl IsAny for TypeError
+pub impl IsError for TypeError
+pub impl IsObject for TypeError
+pub impl IsValue for TypeError
+pub impl Show for TypeError
 
 pub suberror URIError Error_
-impl IsAny for URIError
-impl IsError for URIError
-impl IsObject for URIError
-impl IsValue for URIError
-impl Show for URIError
+pub impl IsAny for URIError
+pub impl IsError for URIError
+pub impl IsObject for URIError
+pub impl IsValue for URIError
+pub impl Show for URIError
 
 pub suberror UnwrapNull SourceLoc
 
 pub suberror UnwrapUndefined SourceLoc
-impl Show for UnwrapUndefined
+pub impl Show for UnwrapUndefined
 
 // Types and methods
 type Any
-fn[T] Any::from(T) -> Self
-fn[T : DynCast] Any::to_option(Self) -> T?
+pub fn[T] Any::from(T) -> Self
+pub fn[T : DynCast] Any::to_option(Self) -> T?
 #callsite(autofill(loc))
-fn Any::unwrap(Self, loc~ : SourceLoc) -> Value raise
-impl IsAny for Any
-impl Show for Any
+pub fn Any::unwrap(Self, loc~ : SourceLoc) -> Value raise
+pub impl IsAny for Any
+pub impl Show for Any
 
 pub struct ArityMismatchInfo {
   function : Function
@@ -114,146 +114,146 @@ pub struct ArityMismatchInfo {
 }
 
 type Bigint
-impl IsAny for Bigint
-impl IsValue for Bigint
+pub impl IsAny for Bigint
+pub impl IsValue for Bigint
 
 type Error_
-fn Error_::new(String, cause? : Any) -> Self
-fn Error_::new_with_loc(String, SourceLoc) -> Self
-impl DynCast for Error_
-impl IsAny for Error_
-impl IsError for Error_
-impl IsObject for Error_
-impl IsValue for Error_
-impl Show for Error_
+pub fn Error_::new(String, cause? : Any) -> Self
+pub fn Error_::new_with_loc(String, SourceLoc) -> Self
+pub impl DynCast for Error_
+pub impl IsAny for Error_
+pub impl IsError for Error_
+pub impl IsObject for Error_
+pub impl IsValue for Error_
+pub impl Show for Error_
 
 type Function
-fn Function::apply(Self, Value, Array[&IsAny]) -> Any
-fn Function::bind(Self, Value) -> Self
-fn Function::call(Self, Array[&IsValue]) -> Value
-fn Function::from_code(Array[String], String) -> Self
-fn Function::get_length(Self) -> Int
-fn Function::get_name(Self) -> String
+pub fn Function::apply(Self, Value, Array[&IsAny]) -> Any
+pub fn Function::bind(Self, Value) -> Self
+pub fn Function::call(Self, Array[&IsValue]) -> Value
+pub fn Function::from_code(Array[String], String) -> Self
+pub fn Function::get_length(Self) -> Int
+pub fn Function::get_name(Self) -> String
 #callsite(autofill(loc))
-fn[F] Function::new(F, loc~ : SourceLoc) -> Self raise
-impl IsAny for Function
-impl IsStringOrFunctionOrObject for Function
-impl IsValue for Function
-impl Show for Function
+pub fn[F] Function::new(F, loc~ : SourceLoc) -> Self raise
+pub impl IsAny for Function
+pub impl IsStringOrFunctionOrObject for Function
+pub impl IsValue for Function
+pub impl Show for Function
 
 pub type JsTypeError
-impl IsAny for JsTypeError
-impl IsObject for JsTypeError
-impl IsValue for JsTypeError
+pub impl IsAny for JsTypeError
+pub impl IsObject for JsTypeError
+pub impl IsValue for JsTypeError
 
 type Nullable[T]
 #as_free_fn(nullable)
-fn[T] Nullable::from(T) -> Self[T]
+pub fn[T] Nullable::from(T) -> Self[T]
 #as_free_fn(null)
-fn[T] Nullable::null() -> Self[T]
-fn[T] Nullable::to_option(Self[T]) -> T?
+pub fn[T] Nullable::null() -> Self[T]
+pub fn[T] Nullable::to_option(Self[T]) -> T?
 #callsite(autofill(loc))
-fn[T] Nullable::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapNull
+pub fn[T] Nullable::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapNull
 #callsite(autofill(loc))
-fn Nullable::unwrap_value(Self[Optional[Value]], loc~ : SourceLoc) -> Value raise
+pub fn Nullable::unwrap_value(Self[Optional[Value]], loc~ : SourceLoc) -> Value raise
 
 pub type Object
-fn Object::assign(Self, Array[&IsObject]) -> Unit
+pub fn Object::assign(Self, Array[&IsObject]) -> Unit
 #callsite(autofill(loc))
-fn Object::call(Self, &IsStringOrSymbol, Array[&IsAny], loc~ : SourceLoc) -> Any raise
-fn Object::empty() -> Self
-fn Object::freeze(Self) -> Unit
+pub fn Object::call(Self, &IsStringOrSymbol, Array[&IsAny], loc~ : SourceLoc) -> Any raise
+pub fn Object::empty() -> Self
+pub fn Object::freeze(Self) -> Unit
 #callsite(autofill(loc))
-fn Object::get(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Value raise
+pub fn Object::get(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Value raise
 #callsite(autofill(loc))
-fn[T : DynCast] Object::get_array(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Array[T] raise
+pub fn[T : DynCast] Object::get_array(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Array[T] raise
 #callsite(autofill(loc))
-fn Object::get_bigint(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bigint raise
+pub fn Object::get_bigint(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bigint raise
 #callsite(autofill(loc))
-fn Object::get_boolean(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bool raise
+pub fn Object::get_boolean(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Bool raise
 #callsite(autofill(loc))
-fn Object::get_function(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
+pub fn Object::get_function(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
 #callsite(autofill(loc))
-fn Object::get_method(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
+pub fn Object::get_method(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Function raise
 #callsite(autofill(loc))
-fn Object::get_number(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Double raise
+pub fn Object::get_number(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Double raise
 #callsite(autofill(loc))
-fn Object::get_object(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Self raise
+pub fn Object::get_object(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Self raise
 #callsite(autofill(loc))
-fn Object::get_string(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> String raise
+pub fn Object::get_string(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> String raise
 #callsite(autofill(loc))
-fn Object::get_symbol(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Symbol raise
-fn Object::has_own(Self, &IsStringOrSymbol) -> Bool
-fn Object::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
+pub fn Object::get_symbol(Self, &IsStringOrSymbol, loc~ : SourceLoc) -> Symbol raise
+pub fn Object::has_own(Self, &IsStringOrSymbol) -> Bool
+pub fn Object::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
 #callsite(autofill(loc))
-fn Object::new(Map[String, &IsValue], loc~ : SourceLoc) -> Self raise
-fn Object::seal(Self) -> Unit
-fn Object::self(Self) -> Self
+pub fn Object::new(Map[String, &IsValue], loc~ : SourceLoc) -> Self raise
+pub fn Object::seal(Self) -> Unit
+pub fn Object::self(Self) -> Self
 #callsite(autofill(loc))
-fn Object::set(Self, &IsStringOrSymbol, &IsValue, loc~ : SourceLoc) -> Unit raise
-impl IsAny for Object
-impl IsStringOrFunctionOrObject for Object
-impl IsValue for Object
+pub fn Object::set(Self, &IsStringOrSymbol, &IsValue, loc~ : SourceLoc) -> Unit raise
+pub impl IsAny for Object
+pub impl IsStringOrFunctionOrObject for Object
+pub impl IsValue for Object
 
 type Optional[T]
 #as_free_fn(optional)
-fn[T] Optional::from(T) -> Self[T]
-fn[T] Optional::from_option(T?) -> Self[T]
-fn[T] Optional::to_option(Self[T]) -> T?
+pub fn[T] Optional::from(T) -> Self[T]
+pub fn[T] Optional::from_option(T?) -> Self[T]
+pub fn[T] Optional::to_option(Self[T]) -> T?
 #as_free_fn(undefined)
-fn[T] Optional::undefined() -> Self[T]
+pub fn[T] Optional::undefined() -> Self[T]
 #callsite(autofill(loc))
-fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
+pub fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
 #callsite(autofill(loc))
-fn Optional::unwrap_value(Self[Nullable[Value]], loc~ : SourceLoc) -> Value raise
-impl[T] IsAny for Optional[T]
+pub fn Optional::unwrap_value(Self[Nullable[Value]], loc~ : SourceLoc) -> Value raise
+pub impl[T] IsAny for Optional[T]
 
 type Promise[T]
-fn[A, B] Promise::bind(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
-fn[A, B] Promise::catch_(Self[A], (Error) -> Self[B]) -> Self[B]
+pub fn[A, B] Promise::bind(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
+pub fn[A, B] Promise::catch_(Self[A], (Error) -> Self[B]) -> Self[B]
 #callsite(autofill(loc))
-fn[A, B] Promise::map(Self[A], (A) -> B raise, loc~ : SourceLoc) -> Self[B]
+pub fn[A, B] Promise::map(Self[A], (A) -> B raise, loc~ : SourceLoc) -> Self[B]
 #callsite(autofill(loc))
-fn[A] Promise::new(A, loc~ : SourceLoc) -> Self[A]
-fn[A] Promise::reject(Error) -> Self[A]
-fn[A] Promise::resolve(A) -> Self[A]
-fn[A, B] Promise::then(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
-async fn[A] Promise::wait(Self[A]) -> A
-impl[T : IsAny] IsAny for Promise[T]
-impl[T : IsValue] IsValue for Promise[T]
+pub fn[A] Promise::new(A, loc~ : SourceLoc) -> Self[A]
+pub fn[A] Promise::reject(Error) -> Self[A]
+pub fn[A] Promise::resolve(A) -> Self[A]
+pub fn[A, B] Promise::then(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
+pub async fn[A] Promise::wait(Self[A]) -> A
+pub impl[T : IsAny] IsAny for Promise[T]
+pub impl[T : IsValue] IsValue for Promise[T]
 
 type Symbol
-impl IsAny for Symbol
-impl IsSymbol for Symbol
-impl IsValue for Symbol
+pub impl IsAny for Symbol
+pub impl IsSymbol for Symbol
+pub impl IsValue for Symbol
 
 pub type Value
-fn Value::as_any(Self) -> Any
-fn Value::as_value(Self) -> Self
-fn Value::get_type(Self) -> String
-fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
+pub fn Value::as_any(Self) -> Any
+pub fn Value::as_value(Self) -> Self
+pub fn Value::get_type(Self) -> String
+pub fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
 #callsite(autofill(loc))
-fn[T : DynCast] Value::to_array(Self, loc~ : SourceLoc) -> Array[T] raise
+pub fn[T : DynCast] Value::to_array(Self, loc~ : SourceLoc) -> Array[T] raise
 #callsite(autofill(loc))
-fn Value::to_bigint(Self, loc~ : SourceLoc) -> Bigint raise InvalidCast
+pub fn Value::to_bigint(Self, loc~ : SourceLoc) -> Bigint raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_boolean(Self, loc~ : SourceLoc) -> Bool raise InvalidCast
+pub fn Value::to_boolean(Self, loc~ : SourceLoc) -> Bool raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_error(Self, loc~ : SourceLoc) -> Error_ raise InvalidCast
+pub fn Value::to_error(Self, loc~ : SourceLoc) -> Error_ raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_function(Self, loc~ : SourceLoc) -> Function raise InvalidCast
+pub fn Value::to_function(Self, loc~ : SourceLoc) -> Function raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_number(Self, loc~ : SourceLoc) -> Double raise InvalidCast
+pub fn Value::to_number(Self, loc~ : SourceLoc) -> Double raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_object(Self, loc~ : SourceLoc) -> Object raise InvalidCast
+pub fn Value::to_object(Self, loc~ : SourceLoc) -> Object raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_string(Self, loc~ : SourceLoc) -> String raise InvalidCast
+pub fn Value::to_string(Self, loc~ : SourceLoc) -> String raise InvalidCast
 #callsite(autofill(loc))
-fn Value::to_symbol(Self, loc~ : SourceLoc) -> Symbol raise InvalidCast
-impl DynCast for Value
-impl IsAny for Value
-impl IsValue for Value
-impl Show for Value
+pub fn Value::to_symbol(Self, loc~ : SourceLoc) -> Symbol raise InvalidCast
+pub impl DynCast for Value
+pub impl IsAny for Value
+pub impl IsValue for Value
+pub impl Show for Value
 
 // Type aliases
 
@@ -261,21 +261,21 @@ impl Show for Value
 pub(open) trait DynCast : IsValue {
   from_value(Value) -> Self raise
 }
-impl DynCast for Bool
-impl DynCast for Int
-impl DynCast for Double
-impl DynCast for String
-impl[T : DynCast] DynCast for Array[T]
+pub impl DynCast for Bool
+pub impl DynCast for Int
+pub impl DynCast for Double
+pub impl DynCast for String
+pub impl[T : DynCast] DynCast for Array[T]
 
 pub(open) trait IsAny {
   as_any(Self) -> Any = _
 }
-impl IsAny for Unit
-impl IsAny for Bool
-impl IsAny for Int
-impl IsAny for Double
-impl IsAny for String
-impl[T : IsAny] IsAny for Array[T]
+pub impl IsAny for Unit
+pub impl IsAny for Bool
+pub impl IsAny for Int
+pub impl IsAny for Double
+pub impl IsAny for String
+pub impl[T : IsAny] IsAny for Array[T]
 
 pub trait IsError : IsObject {
   as_error(Self) -> Error_
@@ -291,15 +291,15 @@ pub trait IsObject : IsValue {
 
 pub trait IsString : IsValue {
 }
-impl IsString for String
+pub impl IsString for String
 
 pub trait IsStringOrFunctionOrObject : IsValue {
 }
-impl IsStringOrFunctionOrObject for String
+pub impl IsStringOrFunctionOrObject for String
 
 pub trait IsStringOrSymbol : IsString + IsSymbol {
 }
-impl IsStringOrSymbol for String
+pub impl IsStringOrSymbol for String
 
 pub(open) trait IsSymbol {
 }
@@ -307,10 +307,10 @@ pub(open) trait IsSymbol {
 pub(open) trait IsValue : IsAny {
   as_value(Self) -> Value = _
 }
-impl IsValue for Unit
-impl IsValue for Bool
-impl IsValue for Int
-impl IsValue for Double
-impl IsValue for String
-impl[T : IsValue] IsValue for Array[T]
+pub impl IsValue for Unit
+pub impl IsValue for Bool
+pub impl IsValue for Int
+pub impl IsValue for Double
+pub impl IsValue for String
+pub impl[T : IsValue] IsValue for Array[T]
 
