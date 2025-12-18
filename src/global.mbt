@@ -12,7 +12,7 @@ pub struct ArityMismatchInfo {
 }
 
 ///|
-pub fn new(ctor : Function, args : Array[&IsAny]) -> Object raise {
+pub fn new(ctor : Function, args : Array[&IsValue]) -> Object raise {
   guard ctor.get_length() == args.length() else {
     raise ArityMismatch({
       function: ctor,
@@ -20,7 +20,7 @@ pub fn new(ctor : Function, args : Array[&IsAny]) -> Object raise {
       provided: args.length(),
     })
   }
-  ffi_new(ctor, args.map(x => x.as_any()))
+  ffi_new(ctor, args.map(x => x.as_value()))
 }
 
 ///|

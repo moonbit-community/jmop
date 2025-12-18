@@ -83,7 +83,7 @@ pub fn Value::to_object(
   self : Self,
   loc~ : SourceLoc,
 ) -> Object raise InvalidCast {
-  if self.get_type() == "object" && !ffi_object_is_null(self.as_any()) {
+  if self.get_type() == "object" && !ffi_object_is_null(identity(self)) {
     identity(self)
   } else {
     raise InvalidCast((loc, self.as_value(), Some("Object")))
@@ -184,7 +184,7 @@ pub fn Value::instance_of(
       InvalidCast(_) => ctor
       _ => panic()
     }
-  ffi_instanceof(self.as_any(), ctor)
+  ffi_instanceof(self, ctor)
 }
 
 ///|

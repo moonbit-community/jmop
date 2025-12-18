@@ -3,7 +3,7 @@
 struct Error_(Object)
 
 ///|
-pub fn Error_::new(message : String, cause? : Any) -> Error_ {
+pub fn Error_::new(message : String, cause? : Value) -> Error_ {
   ffi_error_new(message, Optional::from_option(cause))
 }
 
@@ -19,7 +19,7 @@ pub trait IsError: IsObject {
   as_error(Self) -> Error_ = _
   get_name(Self) -> String = _
   get_message(Self) -> String = _
-  get_cause(Self) -> Any = _
+  get_cause(Self) -> Optional[Value] = _
   get_source_loc(Self) -> SourceLoc? = _
   set_source_loc(Self, SourceLoc) -> Unit = _
 }
@@ -88,7 +88,7 @@ pub impl Show for Error_ with output(self, buf) {
 ///|
 pub fn[T] catch_error(f : () -> T, on_error : (Error_) -> T raise?) -> T raise? {
   let r = ffi_run_with_error(identity(f))
-  match r.as_any().to_option() {
+  match any_to_option(identity(r)) {
     None => identity(r)
     Some(e) => on_error(e)
   }

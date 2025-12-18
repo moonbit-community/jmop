@@ -24,12 +24,12 @@ pub fn Function::from_code(args : Array[String], functionbody : String) -> Self 
 #callsite(autofill(loc))
 pub fn[F] Function::new(f : F, loc~ : SourceLoc) -> Function raise {
   let f : Any = identity(f)
-  f.unwrap(loc~).to_function(loc~)
+  any_unwrap(f, loc~).to_function(loc~)
 }
 
 ///|
-pub fn Function::apply(f : Self, this : Value, args : Array[&IsAny]) -> Any {
-  ffi_function_apply(f, this.as_value(), args.map(x => x.as_any()))
+pub fn Function::apply(f : Self, this : Value, args : Array[&IsValue]) -> Value {
+  ffi_function_apply(f, this.as_value(), args.map(x => x.as_value()))
 }
 
 ///|

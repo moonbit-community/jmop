@@ -1,11 +1,6 @@
 ///|
 /// Represent any value in js, including the null and undefined.
-struct Any(Optional[Nullable[Value]])
-
-///|
-pub impl Show for Any with output(self, buf) {
-  buf.write_string(ffi_to_string(identity(self)))
-}
+pub type Any = Optional[Nullable[Value]]
 
 ///|
 pub(open) trait IsAny {
@@ -16,9 +11,6 @@ pub(open) trait IsAny {
 impl IsAny with as_any(self) {
   self |> identity
 }
-
-///|
-pub impl IsAny for Any
 
 ///|
 pub impl IsAny for String
@@ -39,7 +31,7 @@ pub impl IsAny for Unit
 pub impl[T : IsAny] IsAny for Array[T]
 
 ///|
-pub fn[T] Any::from(x : T) -> Any {
+pub fn[T] any_from(x : T) -> Any {
   identity(x)
 }
 
@@ -47,13 +39,13 @@ pub fn[T] Any::from(x : T) -> Any {
 /// Checks if the value is neither null nor undefined and returns it.
 /// Otherwise, raises an `UnwrapUndefined` or `UnwrapNull` error.
 #callsite(autofill(loc))
-pub fn Any::unwrap(x : Self, loc~ : SourceLoc) -> Value raise {
-  x.0.unwrap_value(loc~)
+pub fn any_unwrap(x : Any, loc~ : SourceLoc) -> Value raise {
+  x.unwrap_value(loc~)
 }
 
 ///|
-pub fn[T : DynCast] Any::to_option(self : Self) -> T? {
-  Some(DynCast::from_value(self.unwrap())) catch {
+pub fn[T : DynCast] any_to_option(x : Any) -> T? {
+  Some(DynCast::from_value(any_unwrap(x))) catch {
     UnwrapNull(_) | UnwrapUndefined(_) => None
     _ => None
   }

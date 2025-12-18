@@ -1,5 +1,5 @@
-extern "js" fn ffi_object_get(obj : Value, prop : Any) -> Any = "(obj, prop) => obj[prop]"
-extern "js" fn ffi_object_set(obj : Value, prop : Any, value : Any) -> Unit = "(obj, prop, value) => obj[prop] = value"
+extern "js" fn ffi_object_get(obj : Value, prop : Value) -> Any = "(obj, prop) => obj[prop]"
+extern "js" fn ffi_object_set(obj : Value, prop : Value, value : Value) -> Unit = "(obj, prop, value) => obj[prop] = value"
 extern "js" fn ffi_object_has_own(obj : Value, prop : Value) -> Bool = "(obj, prop) => Object.hasOwn(obj, prop)"
 extern "js" fn ffi_object_freeze(obj : Value) -> Unit = "(obj) => Object.freeze(obj)"
 extern "js" fn ffi_object_seal(obj : Value) -> Unit = "(obj) => Object.seal(obj)"

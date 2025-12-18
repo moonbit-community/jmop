@@ -65,7 +65,7 @@ pub fn Object::set(
   loc~ : SourceLoc,
 ) -> Unit raise {
   convert_error(loc, fn() {
-    ffi_object_set(self.as_value(), k.as_any(), v.as_any())
+    ffi_object_set(self.as_value(), k.as_value(), v.as_value())
   })
 }
 
@@ -76,7 +76,7 @@ pub fn Object::get(
   prop : &IsStringOrSymbol,
   loc~ : SourceLoc,
 ) -> Value raise {
-  ffi_object_get(self.as_value(), prop.as_any()).0.unwrap_value(loc~)
+  ffi_object_get(self.as_value(), prop.as_value()).unwrap_value(loc~)
 }
 
 ///|
@@ -174,9 +174,9 @@ pub fn Object::get_method(
 pub fn Object::call(
   self : Self,
   method_ : &IsStringOrSymbol,
-  args : Array[&IsAny],
+  args : Array[&IsValue],
   loc~ : SourceLoc,
-) -> Any raise {
+) -> Value raise {
   self.get(method_, loc~).to_function(loc~).apply(self.as_value(), args)
 }
 
@@ -190,5 +190,5 @@ pub fn Object::instance_of(
       InvalidCast(_) => ctor
       _ => panic()
     }
-  ffi_instanceof(self.as_any(), ctor)
+  ffi_instanceof(self.as_value(), ctor)
 }

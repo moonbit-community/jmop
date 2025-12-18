@@ -1,15 +1,15 @@
 ///|
 test "Any from and unwrap_value functionality" {
-  let any_bool = @jmop.Any::from(true)
-  let any_int = @jmop.Any::from(42)
-  let any_double = @jmop.Any::from(3.14)
-  let any_string = @jmop.Any::from("hello")
+  let any_bool : @jmop.Any = @jmop.any_from(true)
+  let any_int : @jmop.Any = @jmop.any_from(42)
+  let any_double : @jmop.Any = @jmop.any_from(3.14)
+  let any_string : @jmop.Any = @jmop.any_from("hello")
 
   // Now we can unwrap values since unwrap_value is public
-  let val_bool = any_bool.unwrap()
-  let val_int = any_int.unwrap()
-  let val_double = any_double.unwrap()
-  let val_string = any_string.unwrap()
+  let val_bool = @jmop.any_unwrap(any_bool)
+  let val_int = @jmop.any_unwrap(any_int)
+  let val_double = @jmop.any_unwrap(any_double)
+  let val_string = @jmop.any_unwrap(any_string)
   inspect(val_bool.to_boolean(), content="true")
   inspect(val_int.to_number(), content="42")
   inspect(val_double.to_number(), content="3.14")
@@ -19,8 +19,8 @@ test "Any from and unwrap_value functionality" {
 ///|
 test "Any from with arrays and unwrap" {
   let arr = [1, 2, 3]
-  let any_arr = @jmop.Any::from(arr)
-  let val_arr = any_arr.unwrap()
+  let any_arr : @jmop.Any = @jmop.any_from(arr)
+  let val_arr = @jmop.any_unwrap(any_arr)
   let back_arr : Array[Int] = val_arr.to_array()
   inspect(back_arr.length(), content="3")
   inspect(back_arr[0], content="1")

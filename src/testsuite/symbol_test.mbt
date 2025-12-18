@@ -23,7 +23,7 @@ test "Symbol as_any implementation" {
   let symbol_value = symbol_ctor.call(["any_test"])
   let symbol : @jmop.Symbol = symbol_value.to_symbol()
   let as_any : @jmop.Any = symbol.as_any()
-  let back_value : @jmop.Value = as_any.unwrap()
+  let back_value : @jmop.Value = @jmop.any_unwrap(as_any)
   inspect(back_value.get_type(), content="symbol")
 }
 

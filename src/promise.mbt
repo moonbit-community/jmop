@@ -60,7 +60,7 @@ pub fn[A, B] Promise::map(
     }
   }
 
-  let reject : (Any) -> Any = identity((undefined() : Optional[Unit]))
+  let reject : (Error) -> Value = fn(_e) { identity(undefined()) }
   ffi_promise_then(x, f, reject) |> identity
 }
 
@@ -85,7 +85,7 @@ pub fn[A, B] Promise::bind(
 ///|
 pub async fn[A] Promise::wait(x : Self[A]) -> A {
   suspend(fn(ok, err) {
-    ffi_promise_then(identity(x), identity(ok), identity(err))
+    let _ = ffi_promise_then(identity(x), identity(ok), identity(err))
   })
 }
 

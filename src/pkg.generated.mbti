@@ -2,6 +2,13 @@
 package "Yoorkin/jmop"
 
 // Values
+pub fn[T] any_from(T) -> Optional[Nullable[Value]]
+
+pub fn[T : DynCast] any_to_option(Optional[Nullable[Value]]) -> T?
+
+#callsite(autofill(loc))
+pub fn any_unwrap(Optional[Nullable[Value]], loc~ : SourceLoc) -> Value raise
+
 pub fn[T] catch_error(() -> T, (Error_) -> T raise?) -> T raise?
 
 pub fn[T] convert_error(SourceLoc, () -> T) -> T raise
@@ -15,7 +22,7 @@ pub let global_this : Object
 
 pub fn launch(async () -> Unit noraise) -> Unit
 
-pub fn new(Function, Array[&IsAny]) -> Object raise
+pub fn new(Function, Array[&IsValue]) -> Object raise
 
 pub fn[T] no_raise(() -> T raise) -> T
 
@@ -99,14 +106,6 @@ pub suberror UnwrapUndefined SourceLoc
 pub impl Show for UnwrapUndefined
 
 // Types and methods
-type Any
-pub fn[T] Any::from(T) -> Self
-pub fn[T : DynCast] Any::to_option(Self) -> T?
-#callsite(autofill(loc))
-pub fn Any::unwrap(Self, loc~ : SourceLoc) -> Value raise
-pub impl IsAny for Any
-pub impl Show for Any
-
 pub struct ArityMismatchInfo {
   function : Function
   expected : Int
@@ -118,7 +117,7 @@ pub impl IsAny for Bigint
 pub impl IsValue for Bigint
 
 type Error_
-pub fn Error_::new(String, cause? : Any) -> Self
+pub fn Error_::new(String, cause? : Value) -> Self
 pub fn Error_::new_with_loc(String, SourceLoc) -> Self
 pub impl DynCast for Error_
 pub impl IsAny for Error_
@@ -128,7 +127,7 @@ pub impl IsValue for Error_
 pub impl Show for Error_
 
 type Function
-pub fn Function::apply(Self, Value, Array[&IsAny]) -> Any
+pub fn Function::apply(Self, Value, Array[&IsValue]) -> Value
 pub fn Function::bind(Self, Value) -> Self
 pub fn Function::call(Self, Array[&IsValue]) -> Value
 pub fn Function::from_code(Array[String], String) -> Self
@@ -160,7 +159,7 @@ pub fn Nullable::unwrap_value(Self[Optional[Value]], loc~ : SourceLoc) -> Value 
 pub type Object
 pub fn Object::assign(Self, Array[&IsObject]) -> Unit
 #callsite(autofill(loc))
-pub fn Object::call(Self, &IsStringOrSymbol, Array[&IsAny], loc~ : SourceLoc) -> Any raise
+pub fn Object::call(Self, &IsStringOrSymbol, Array[&IsValue], loc~ : SourceLoc) -> Value raise
 pub fn Object::empty() -> Self
 pub fn Object::freeze(Self) -> Unit
 #callsite(autofill(loc))
@@ -228,7 +227,7 @@ pub impl IsSymbol for Symbol
 pub impl IsValue for Symbol
 
 pub type Value
-pub fn Value::as_any(Self) -> Any
+pub fn Value::as_any(Self) -> Optional[Nullable[Self]]
 pub fn Value::as_value(Self) -> Self
 pub fn Value::get_type(Self) -> String
 pub fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
@@ -256,6 +255,7 @@ pub impl IsValue for Value
 pub impl Show for Value
 
 // Type aliases
+pub type Any = Optional[Nullable[Value]]
 
 // Traits
 pub(open) trait DynCast : IsValue {
@@ -268,7 +268,7 @@ pub impl DynCast for String
 pub impl[T : DynCast] DynCast for Array[T]
 
 pub(open) trait IsAny {
-  as_any(Self) -> Any = _
+  as_any(Self) -> Optional[Nullable[Value]] = _
 }
 pub impl IsAny for Unit
 pub impl IsAny for Bool
@@ -281,7 +281,7 @@ pub trait IsError : IsObject {
   as_error(Self) -> Error_
   get_name(Self) -> String
   get_message(Self) -> String
-  get_cause(Self) -> Any
+  get_cause(Self) -> Optional[Value]
   get_source_loc(Self) -> SourceLoc?
   set_source_loc(Self, SourceLoc) -> Unit
 }

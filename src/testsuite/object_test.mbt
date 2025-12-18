@@ -25,7 +25,7 @@ test "Object call_method calls object method" {
   let obj = @jmop.Object::empty()
   let func = @jmop.Function::from_code(["x"], "return x * 2")
   obj.set("double", func)
-  let result = obj.call("double", [5]).unwrap()
+  let result = obj.call("double", [5])
   inspect(result.to_number(), content="10")
 }
 
@@ -63,7 +63,7 @@ test "Object IsValue implementation" {
   let as_value = obj.as_value()
   inspect(as_value.get_type(), content="object")
   let as_any = obj.as_any()
-  let back_value = as_any.unwrap()
+  let back_value = @jmop.any_unwrap(as_any)
   let back_obj = back_value.to_object()
   inspect(back_obj.as_value().get_type(), content="object")
 }

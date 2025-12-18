@@ -20,7 +20,7 @@ test "Function call executes function" {
 test "Function apply with this context" {
   let func : @jmop.Function = @jmop.Function::from_code(["x"], "return x * 3")
   let this_obj : @jmop.Object = @jmop.Object::empty()
-  let result : @jmop.Value = func.apply(this_obj.as_value(), [5]).unwrap()
+  let result : @jmop.Value = func.apply(this_obj.as_value(), [5])
   inspect(result.to_number(), content="15")
 }
 
@@ -76,7 +76,7 @@ test "Function IsValue implementation" {
   let as_value : @jmop.Value = func.as_value()
   inspect(as_value.get_type(), content="function")
   let as_any : @jmop.Any = func.as_any()
-  let back_value : @jmop.Value = as_any.unwrap()
+  let back_value : @jmop.Value = @jmop.any_unwrap(as_any)
   inspect(back_value.get_type(), content="function")
 }
 
