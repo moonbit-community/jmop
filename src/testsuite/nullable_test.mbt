@@ -40,3 +40,14 @@ test "nullable global function creates Nullable" {
   let unwrapped : Int = nullable.unwrap()
   inspect(unwrapped, content="123")
 }
+
+///|
+test "Nullable::unwrap_value unwraps nested nullable" {
+  let value : @jmop.Value = @jmop.IsValue::as_value("test")
+  let optional_value : @jmop.Optional[@jmop.Value] = @jmop.Optional::from(value)
+  let nullable : @jmop.Nullable[@jmop.Optional[@jmop.Value]] = @jmop.Nullable::from(
+    optional_value,
+  )
+  let unwrapped = nullable.unwrap_value()
+  inspect(unwrapped.to_string(), content="test")
+}

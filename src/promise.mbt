@@ -86,6 +86,7 @@ pub fn[A, B] Promise::bind(
 pub async fn[A] Promise::wait(x : Self[A]) -> A {
   suspend(fn(ok, err) {
     let _ = ffi_promise_then(identity(x), identity(ok), identity(err))
+
   })
 }
 

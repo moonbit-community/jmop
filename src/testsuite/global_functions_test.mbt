@@ -39,3 +39,17 @@ test "try_launch async function" {
   })
   inspect("try_launch completed", content="try_launch completed")
 }
+
+///|
+test "new creates object with constructor" {
+  // Use Array constructor which has length 1
+  let array_ctor = @jmop.global_this.get("Array").to_function()
+  let arr = @jmop.new(array_ctor, [3]) // Create array with length 3
+  inspect(arr.as_value().get_type(), content="object")
+}
+
+///|
+test "no_raise converts raising function" {
+  let result = @jmop.no_raise(fn() -> Int raise { 42 })
+  inspect(result, content="42")
+}

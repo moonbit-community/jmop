@@ -13,7 +13,7 @@ test "Function call executes function" {
   )
   // Use direct values instead of Any.unwrap_value since those don't implement IsValue
   let result : @jmop.Value = func.call([10, 20])
-  inspect(result.to_number(), content="NaN")
+  inspect(result.to_number(), content="30")
 }
 
 ///|
@@ -33,7 +33,7 @@ test "Function bind creates bound function" {
   let this_obj : @jmop.Object = @jmop.Object::empty()
   let bound_func : @jmop.Function = func.bind(this_obj.as_value())
   let result : @jmop.Value = bound_func.call(["World"])
-  inspect(result.to_string(), content="Hello undefined")
+  inspect(result.to_string(), content="Hello World")
 }
 
 ///|
@@ -67,7 +67,7 @@ test "Function new converts MoonBit function" {
 
   let js_func : @jmop.Function = @jmop.Function::new(moonbit_func)
   let result : @jmop.Value = js_func.call([41])
-  inspect(result.to_number(), content="0")
+  inspect(result.to_number(), content="42")
 }
 
 ///|

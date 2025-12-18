@@ -47,3 +47,30 @@ test "optional global function creates Optional" {
   let unwrapped : Int = optional.unwrap()
   inspect(unwrapped, content="456")
 }
+
+///|
+test "Optional::from_option converts Some" {
+  let opt : Int? = Some(123)
+  let optional = @jmop.Optional::from_option(opt)
+  let unwrapped = optional.unwrap()
+  inspect(unwrapped, content="123")
+}
+
+///|
+test "Optional::from_option converts None to undefined" {
+  let opt : Int? = None
+  let optional = @jmop.Optional::from_option(opt)
+  inspect(
+    try? optional.unwrap(),
+    content=(
+      #|Err(Error (@jmop.UnwrapUndefined) at "testsuite_blackbox_test/optional_test.mbt:63:-1": cannot unwrap undefined)
+    ),
+  )
+}
+
+///|
+test "Optional::to_option converts to Option" {
+  let optional = @jmop.Optional::from(42)
+  let opt = optional.to_option()
+  inspect(opt, content="Some(42)")
+}
