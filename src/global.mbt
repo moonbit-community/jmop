@@ -2,9 +2,6 @@
 pub let global_this : Object = ffi_global_this()
 
 ///|
-extern "js" fn ffi_global_this() -> Object = "() => globalThis"
-
-///|
 pub suberror ArityMismatch ArityMismatchInfo
 
 ///|
@@ -36,6 +33,3 @@ pub fn[T] no_raise(f : () -> T raise) -> T {
     }
   }
 }
-
-///|
-extern "js" fn ffi_new(ctor : Function, args : Array[Any]) -> Object = "(ctor, args) => new ctor(...args)"

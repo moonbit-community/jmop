@@ -1,7 +1,14 @@
 {
     "formatter": {
         "ignore": [
-            "error.js.mbt"
+            "error.js.mbt",
+            "function.js.mbt",
+            "global.js.mbt",
+            "nullable.js.mbt",
+            "object.js.mbt",
+            "optional.js.mbt",
+            "promise.js.mbt",
+            "value.js.mbt"
         ]
     }
 }

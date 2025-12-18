@@ -42,33 +42,5 @@ pub fn Function::bind(f : Self, this : Value) -> Function {
   ffi_function_bind(f, this.as_value())
 }
 
-///|
-pub extern "js" fn Function::get_length(f : Self) -> Int = "(f) => f.length"
-
-///|
-pub extern "js" fn Function::get_name(f : Self) -> String = "(f) => f.name"
-
-///|
-extern "js" fn ffi_function_new(
-  args : Array[String],
-  body : String,
-) -> Function = "(args, body) => new Function(...args, body)"
-
-///|
-extern "js" fn ffi_function_apply(
-  f : Function,
-  this : Value,
-  args : Array[Any],
-) -> Any = "(f,t,args) => f.apply(t,args)"
-
-///|
-extern "js" fn ffi_function_call(f : Function, args : Array[Value]) -> Value = "(f,args) => f.call(args)"
-
-///|
-extern "js" fn ffi_function_bind(f : Function, this : Value) -> Function = "(f,t) => f.bind(t)"
-
-///|
-extern "js" fn ffi_function_to_string(f : Function) -> String = "(f) => f.toString()"
-
 // TODO: [Symbol.hasInstance]()
 // TODO: prototype

@@ -1,0 +1,5 @@
+extern "js" fn ffi_promise_resolve(x : Any) -> Any = "(x) => Promise.resolve(x)"
+extern "js" fn ffi_promise_reject(e : Error) -> Any = "(x) => Promise.reject(x)"
+extern "js" fn ffi_promise_then(x : Any, ok : (Any) -> Any, err : (Any) -> Any) = "(x,f,g) => x.then(f,g)"
+extern "js" fn ffi_promise_catch(x : Any, err : (Error) -> Any) = "(x,f) => x.catch(f)"
+extern "js" fn ffi_is_promise(x : Any) -> Bool = "(p) => !!p && typeof p.then === 'function'"

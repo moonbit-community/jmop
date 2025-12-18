@@ -106,27 +106,3 @@ fn run(f : async () -> Unit noraise) -> Unit noraise = "%async.run"
 async fn[T, E : Error] suspend(
   f : ((T) -> Unit, (E) -> Unit) -> Unit,
 ) -> T raise E = "%async.suspend"
-
-///|
-extern "js" fn ffi_promise_resolve(x : Any) -> Any = "(x) => Promise.resolve(x)"
-
-///|
-extern "js" fn ffi_promise_reject(e : Error) -> Any = "(x) => Promise.reject(x)"
-
-///|
-extern "js" fn ffi_promise_then(x : Any, ok : (Any) -> Any, err : (Any) -> Any) = "(x,f,g) => x.then(f,g)"
-
-///|
-extern "js" fn ffi_promise_catch(x : Any, err : (Error) -> Any) = "(x,f) => x.catch(f)"
-
-///|
-extern "js" fn ffi_is_promise(x : Any) -> Bool = "(p) => !!p && typeof p.then === 'function'"
-
-///|
-// extern "js" fn ffi_promise_handle_thrown_error(
-//   promise : Any,
-//   j2m : (String, Any, Any) -> Any raise,
-// ) -> Any raise = "(a,b) => MoonBit.Promise.handle_thrown(a,b)"
-
-///|
-// extern "js" fn ffi_not_promise_or_throw(promise : Any, loc~ : SourceLoc) -> Any = "(a,b) => MoonBit.Promise.not_promise_or_throw(a,b)"
