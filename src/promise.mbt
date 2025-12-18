@@ -120,7 +120,7 @@ extern "js" fn ffi_promise_then(x : Any, ok : (Any) -> Any, err : (Any) -> Any) 
 extern "js" fn ffi_promise_catch(x : Any, err : (Error) -> Any) = "(x,f) => x.catch(f)"
 
 ///|
-extern "js" fn ffi_is_promise(x : Any) -> Bool = "(a) => MoonBit.Promise.is_promise(a)"
+extern "js" fn ffi_is_promise(x : Any) -> Bool = "(p) => !!p && typeof p.then === 'function'"
 
 ///|
 // extern "js" fn ffi_promise_handle_thrown_error(

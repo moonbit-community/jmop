@@ -93,24 +93,3 @@ pub fn[T] catch_error(f : () -> T, on_error : (Error_) -> T raise?) -> T raise? 
     Some(e) => on_error(e)
   }
 }
-
-///|
-extern "js" fn ffi_run_with_error(f : () -> Any) -> Any = "(f) => { try { return f(); } catch(e) { return e; } }"
-
-///|
-extern "js" fn ffi_error_get_name(x : Error_) -> String = "(x) => x.name"
-
-///|
-extern "js" fn ffi_error_get_message(x : Error_) -> String = "(x) => x.message"
-
-///|
-extern "js" fn ffi_error_get_cause(x : Error_) -> Any = "(x) => x.cause"
-
-///|
-extern "js" fn ffi_error_get_source_loc(x : Error_) -> Nullable[SourceLoc] = "(x) => x.moonbit_source_loc"
-
-///|
-extern "js" fn ffi_error_set_source_loc(x : Error_, loc : SourceLoc) -> Unit = "(x, loc) => { x.moonbit_source_loc = loc; }"
-
-///|
-extern "js" fn ffi_error_new(message : String, cause : Optional[Any]) -> Error_ = "(message, cause) => new Error(message, { cause: cause })"

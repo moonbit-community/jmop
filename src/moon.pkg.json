@@ -1,0 +1,7 @@
+{
+    "formatter": {
+        "ignore": [
+            "error.js.mbt"
+        ]
+    }
+}

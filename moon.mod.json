@@ -6,5 +6,6 @@
   "license": "Apache-2.0",
   "keywords": ["js", "ffi", "web"],
   "description": "A safe JavaScript interop tool.",
-  "preferred-target": "js"
+  "preferred-target": "js",
+  "source": "src"
 }
