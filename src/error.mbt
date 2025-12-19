@@ -25,18 +25,6 @@ pub trait IsError: IsObject {
 }
 
 ///|
-pub impl IsAny for Error_
-
-///|
-pub impl IsValue for Error_
-
-///|
-pub impl IsObject for Error_
-
-///|
-pub impl IsError for Error_
-
-///|
 pub impl DynCast for Error_ with from_value(v) {
   if v.instance_of("Error") {
     v.to_object()

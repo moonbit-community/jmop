@@ -8,7 +8,8 @@
             "object.js.mbt",
             "optional.js.mbt",
             "promise.js.mbt",
-            "value.js.mbt"
+            "value.js.mbt",
+            "dummy_impls.mbt"
         ]
     }
 }

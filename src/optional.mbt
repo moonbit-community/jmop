@@ -6,9 +6,6 @@
 type Optional[T]
 
 ///|
-pub impl[T] IsAny for Optional[T]
-
-///|
 #callsite(autofill(loc))
 pub fn[T] Optional::unwrap(
   self : Self[T],

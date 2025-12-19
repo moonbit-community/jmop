@@ -77,8 +77,6 @@ pub impl IsObject for ReferenceError
 pub impl IsValue for ReferenceError
 pub impl Show for ReferenceError
 
-pub suberror RuntimeError Value
-
 pub suberror SyntaxError Error_
 pub impl IsAny for SyntaxError
 pub impl IsError for SyntaxError

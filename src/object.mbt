@@ -5,12 +5,6 @@
 pub type Object
 
 ///|
-pub impl IsAny for Object
-
-///|
-pub impl IsValue for Object
-
-///|
 pub trait IsObject: IsValue {}
 
 ///|

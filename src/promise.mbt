@@ -2,12 +2,6 @@
 type Promise[T]
 
 ///|
-pub impl[T : IsAny] IsAny for Promise[T]
-
-///|
-pub impl[T : IsValue] IsValue for Promise[T]
-
-///|
 pub fn[A] Promise::resolve(x : A) -> Self[A] {
   Promise::new(x)
 }

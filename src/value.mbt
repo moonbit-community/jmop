@@ -8,30 +8,6 @@ pub(open) trait IsValue: IsAny {
 }
 
 ///|
-pub impl IsAny for Value
-
-///|
-pub impl IsValue for Value
-
-///|
-pub impl IsValue for Unit
-
-///|
-pub impl IsValue for Bool
-
-///|
-pub impl IsValue for Double
-
-///|
-pub impl IsValue for Int
-
-///|
-pub impl IsValue for String
-
-///|
-pub impl[T : IsValue] IsValue for Array[T]
-
-///|
 pub impl Show for Value with output(self, buf) {
   buf.write_string(ffi_to_string(self))
 }

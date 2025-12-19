@@ -63,7 +63,7 @@ test "Optional::from_option converts None to undefined" {
   inspect(
     try? optional.unwrap(),
     content=(
-      #|Err(Error (@jmop.UnwrapUndefined) at "testsuite_blackbox_test/optional_test.mbt:63:-1": cannot unwrap undefined)
+      #|Err(Error (@jmop.UnwrapUndefined) at "testsuite_blackbox_test/optional_test.mbt:64:-1": cannot unwrap undefined)
     ),
   )
 }

@@ -13,24 +13,6 @@ impl IsAny with as_any(self) {
 }
 
 ///|
-pub impl IsAny for String
-
-///|
-pub impl IsAny for Double
-
-///|
-pub impl IsAny for Int
-
-///|
-pub impl IsAny for Bool
-
-///|
-pub impl IsAny for Unit
-
-///|
-pub impl[T : IsAny] IsAny for Array[T]
-
-///|
 pub fn[T] any_from(x : T) -> Any {
   identity(x)
 }
