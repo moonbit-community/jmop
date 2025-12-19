@@ -3,7 +3,8 @@
 pub type Any = Optional[Nullable[Value]]
 
 ///|
-pub fn[T] any_from(x : T) -> Any {
+#internal(jmop_unsafe, "unsafe cast")
+pub fn[T] unsafe_to_any(x : T) -> Any {
   identity(x)
 }
 

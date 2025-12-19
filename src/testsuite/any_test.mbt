@@ -1,9 +1,9 @@
 ///|
 test "Any from and unwrap_value functionality" {
-  let any_bool : @jmop.Any = @jmop.any_from(true)
-  let any_int : @jmop.Any = @jmop.any_from(42)
-  let any_double : @jmop.Any = @jmop.any_from(3.14)
-  let any_string : @jmop.Any = @jmop.any_from("hello")
+  let any_bool : @jmop.Any = @jmop.unsafe_to_any(true)
+  let any_int : @jmop.Any = @jmop.unsafe_to_any(42)
+  let any_double : @jmop.Any = @jmop.unsafe_to_any(3.14)
+  let any_string : @jmop.Any = @jmop.unsafe_to_any("hello")
 
   // Now we can unwrap values since unwrap_value is public
   let val_bool = @jmop.any_unwrap(any_bool)
@@ -19,7 +19,7 @@ test "Any from and unwrap_value functionality" {
 ///|
 test "Any from with arrays and unwrap" {
   let arr = [1, 2, 3]
-  let any_arr : @jmop.Any = @jmop.any_from(arr)
+  let any_arr : @jmop.Any = @jmop.unsafe_to_any(arr)
   let val_arr = @jmop.any_unwrap(any_arr)
   let back_arr : Array[Int] = val_arr.to_array()
   inspect(back_arr.length(), content="3")

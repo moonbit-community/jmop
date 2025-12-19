@@ -1,8 +1,8 @@
 ///|
 test "Global dyn_cast function" {
-  let string_value = @jmop.any_unwrap(@jmop.any_from("hello"))
-  let int_value = @jmop.any_unwrap(@jmop.any_from(42))
-  let array_value = @jmop.any_unwrap(@jmop.any_from([1, 2, 3]))
+  let string_value = @jmop.any_unwrap(@jmop.unsafe_to_any("hello"))
+  let int_value = @jmop.any_unwrap(@jmop.unsafe_to_any(42))
+  let array_value = @jmop.any_unwrap(@jmop.unsafe_to_any([1, 2, 3]))
   let cast_string : String = @jmop.dyn_cast(string_value)
   let cast_int : Int = @jmop.dyn_cast(int_value)
   let cast_array : Array[Int] = @jmop.dyn_cast(array_value)

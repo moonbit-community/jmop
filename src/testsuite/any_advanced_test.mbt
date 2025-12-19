@@ -1,7 +1,7 @@
 ///|
 test "Any unwrap with null handling" {
   let null_val : @jmop.Nullable[@jmop.Value] = @jmop.Nullable::null()
-  let any_null : @jmop.Any = @jmop.any_from(null_val)
+  let any_null : @jmop.Any = @jmop.unsafe_to_any(null_val)
   try {
     ignore(@jmop.any_unwrap(any_null))
     inspect("should not reach here", content="should not reach here")
@@ -15,7 +15,7 @@ test "Any unwrap with null handling" {
 ///|
 test "Any unwrap with undefined handling" {
   let undef_val : @jmop.Optional[@jmop.Value] = @jmop.Optional::undefined()
-  let any_undef : @jmop.Any = @jmop.any_from(undef_val)
+  let any_undef : @jmop.Any = @jmop.unsafe_to_any(undef_val)
   try {
     ignore(@jmop.any_unwrap(any_undef))
     inspect("should not reach here", content="should not reach here")
@@ -28,7 +28,7 @@ test "Any unwrap with undefined handling" {
 
 ///|
 test "any_to_option with valid value" {
-  let any_val : @jmop.Any = @jmop.any_from(42)
+  let any_val : @jmop.Any = @jmop.unsafe_to_any(42)
   let result : Int? = @jmop.any_to_option(any_val)
   inspect(result, content="Some(42)")
 }
@@ -36,7 +36,7 @@ test "any_to_option with valid value" {
 ///|
 test "any_to_option with null returns None" {
   let null_val : @jmop.Nullable[@jmop.Value] = @jmop.Nullable::null()
-  let any_null : @jmop.Any = @jmop.any_from(null_val)
+  let any_null : @jmop.Any = @jmop.unsafe_to_any(null_val)
   let result : Int? = @jmop.any_to_option(any_null)
   inspect(result, content="None")
 }

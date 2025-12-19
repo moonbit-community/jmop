@@ -2,8 +2,6 @@
 package "Yoorkin/jmop"
 
 // Values
-pub fn[T] any_from(T) -> Optional[Nullable[Value]]
-
 pub fn[T : DynCast] any_to_option(Optional[Nullable[Value]]) -> T?
 
 #callsite(autofill(loc))
@@ -27,6 +25,8 @@ pub fn new(Function, Array[&IsValue]) -> Object raise
 pub fn[T] no_raise(() -> T raise) -> T
 
 pub fn try_launch(async () -> Unit) -> Unit
+
+pub fn[T] unsafe_to_any(T) -> Optional[Nullable[Value]]
 
 // Errors
 pub suberror AggregateError Error_
