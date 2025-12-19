@@ -30,7 +30,6 @@ pub fn try_launch(async () -> Unit) -> Unit
 
 // Errors
 pub suberror AggregateError Error_
-pub impl IsAny for AggregateError
 pub impl IsError for AggregateError
 pub impl IsObject for AggregateError
 pub impl IsValue for AggregateError
@@ -41,14 +40,12 @@ pub suberror ArityMismatch ArityMismatchInfo
 type DynCastFailed
 
 pub suberror EvalError Error_
-pub impl IsAny for EvalError
 pub impl IsError for EvalError
 pub impl IsObject for EvalError
 pub impl IsValue for EvalError
 pub impl Show for EvalError
 
 pub suberror InternalError Error_
-pub impl IsAny for InternalError
 pub impl IsError for InternalError
 pub impl IsObject for InternalError
 pub impl IsValue for InternalError
@@ -64,35 +61,30 @@ pub suberror InvalidNestedPromise SourceLoc
 pub impl Show for InvalidNestedPromise
 
 pub suberror RangeError Error_
-pub impl IsAny for RangeError
 pub impl IsError for RangeError
 pub impl IsObject for RangeError
 pub impl IsValue for RangeError
 pub impl Show for RangeError
 
 pub suberror ReferenceError Error_
-pub impl IsAny for ReferenceError
 pub impl IsError for ReferenceError
 pub impl IsObject for ReferenceError
 pub impl IsValue for ReferenceError
 pub impl Show for ReferenceError
 
 pub suberror SyntaxError Error_
-pub impl IsAny for SyntaxError
 pub impl IsError for SyntaxError
 pub impl IsObject for SyntaxError
 pub impl IsValue for SyntaxError
 pub impl Show for SyntaxError
 
 pub suberror TypeError Error_
-pub impl IsAny for TypeError
 pub impl IsError for TypeError
 pub impl IsObject for TypeError
 pub impl IsValue for TypeError
 pub impl Show for TypeError
 
 pub suberror URIError Error_
-pub impl IsAny for URIError
 pub impl IsError for URIError
 pub impl IsObject for URIError
 pub impl IsValue for URIError
@@ -111,14 +103,12 @@ pub struct ArityMismatchInfo {
 }
 
 type Bigint
-pub impl IsAny for Bigint
 pub impl IsValue for Bigint
 
 type Error_
 pub fn Error_::new(String, cause? : Value) -> Self
 pub fn Error_::new_with_loc(String, SourceLoc) -> Self
 pub impl DynCast for Error_
-pub impl IsAny for Error_
 pub impl IsError for Error_
 pub impl IsObject for Error_
 pub impl IsValue for Error_
@@ -133,13 +123,11 @@ pub fn Function::get_length(Self) -> Int
 pub fn Function::get_name(Self) -> String
 #callsite(autofill(loc))
 pub fn[F] Function::new(F, loc~ : SourceLoc) -> Self raise
-pub impl IsAny for Function
 pub impl IsStringOrFunctionOrObject for Function
 pub impl IsValue for Function
 pub impl Show for Function
 
 pub type JsTypeError
-pub impl IsAny for JsTypeError
 pub impl IsObject for JsTypeError
 pub impl IsValue for JsTypeError
 
@@ -188,7 +176,6 @@ pub fn Object::seal(Self) -> Unit
 pub fn Object::self(Self) -> Self
 #callsite(autofill(loc))
 pub fn Object::set(Self, &IsStringOrSymbol, &IsValue, loc~ : SourceLoc) -> Unit raise
-pub impl IsAny for Object
 pub impl IsStringOrFunctionOrObject for Object
 pub impl IsValue for Object
 
@@ -203,7 +190,6 @@ pub fn[T] Optional::undefined() -> Self[T]
 pub fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
 #callsite(autofill(loc))
 pub fn Optional::unwrap_value(Self[Nullable[Value]], loc~ : SourceLoc) -> Value raise
-pub impl[T] IsAny for Optional[T]
 
 type Promise[T]
 pub fn[A, B] Promise::bind(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
@@ -216,16 +202,13 @@ pub fn[A] Promise::reject(Error) -> Self[A]
 pub fn[A] Promise::resolve(A) -> Self[A]
 pub fn[A, B] Promise::then(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
 pub async fn[A] Promise::wait(Self[A]) -> A
-pub impl[T : IsAny] IsAny for Promise[T]
 pub impl[T : IsValue] IsValue for Promise[T]
 
 type Symbol
-pub impl IsAny for Symbol
 pub impl IsSymbol for Symbol
 pub impl IsValue for Symbol
 
 pub type Value
-pub fn Value::as_any(Self) -> Optional[Nullable[Self]]
 pub fn Value::as_value(Self) -> Self
 pub fn Value::get_type(Self) -> String
 pub fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
@@ -248,7 +231,6 @@ pub fn Value::to_string(Self, loc~ : SourceLoc) -> String raise InvalidCast
 #callsite(autofill(loc))
 pub fn Value::to_symbol(Self, loc~ : SourceLoc) -> Symbol raise InvalidCast
 pub impl DynCast for Value
-pub impl IsAny for Value
 pub impl IsValue for Value
 pub impl Show for Value
 
@@ -264,16 +246,6 @@ pub impl DynCast for Int
 pub impl DynCast for Double
 pub impl DynCast for String
 pub impl[T : DynCast] DynCast for Array[T]
-
-pub(open) trait IsAny {
-  as_any(Self) -> Optional[Nullable[Value]] = _
-}
-pub impl IsAny for Unit
-pub impl IsAny for Bool
-pub impl IsAny for Int
-pub impl IsAny for Double
-pub impl IsAny for String
-pub impl[T : IsAny] IsAny for Array[T]
 
 pub trait IsError : IsObject {
   as_error(Self) -> Error_
@@ -302,8 +274,9 @@ pub impl IsStringOrSymbol for String
 pub(open) trait IsSymbol {
 }
 
-pub(open) trait IsValue : IsAny {
+pub(open) trait IsValue {
   as_value(Self) -> Value = _
+  as_any(Self) -> Optional[Nullable[Value]] = _
 }
 pub impl IsValue for Unit
 pub impl IsValue for Bool

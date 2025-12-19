@@ -3,16 +3,6 @@
 pub type Any = Optional[Nullable[Value]]
 
 ///|
-pub(open) trait IsAny {
-  as_any(Self) -> Any = _
-}
-
-///|
-impl IsAny with as_any(self) {
-  self |> identity
-}
-
-///|
 pub fn[T] any_from(x : T) -> Any {
   identity(x)
 }

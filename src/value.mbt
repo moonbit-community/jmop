@@ -3,8 +3,9 @@
 pub type Value
 
 ///|
-pub(open) trait IsValue: IsAny {
+pub(open) trait IsValue {
   as_value(Self) -> Value = _
+  as_any(Self) -> Any = _
 }
 
 ///|
@@ -14,17 +15,17 @@ pub impl Show for Value with output(self, buf) {
 
 ///|
 impl IsValue with as_value(self) {
-  identity(self)
+  self |> identity
 }
 
 ///|
-pub fn Value::as_any(self : Self) -> Any {
-  identity(self)
+impl IsValue with as_any(self) {
+  identity(self.as_value())
 }
 
 ///|
 pub fn Value::as_value(self : Self) -> Value {
-  identity(self)
+  self
 }
 
 ///|

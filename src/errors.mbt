@@ -41,7 +41,6 @@ pub suberror UnwrapUndefined SourceLoc
 pub suberror InvalidNestedPromise SourceLoc
 
 ///|
-pub impl IsAny for EvalError
 
 ///|
 pub impl IsValue for EvalError
@@ -53,7 +52,6 @@ pub impl IsObject for EvalError
 pub impl IsError for EvalError
 
 ///|
-pub impl IsAny for RangeError
 
 ///|
 pub impl IsValue for RangeError
@@ -65,7 +63,6 @@ pub impl IsObject for RangeError
 pub impl IsError for RangeError
 
 ///|
-pub impl IsAny for TypeError
 
 ///|
 pub impl IsValue for TypeError
@@ -77,7 +74,6 @@ pub impl IsObject for TypeError
 pub impl IsError for TypeError
 
 ///|
-pub impl IsAny for ReferenceError
 
 ///|
 pub impl IsValue for ReferenceError
@@ -89,7 +85,6 @@ pub impl IsObject for ReferenceError
 pub impl IsError for ReferenceError
 
 ///|
-pub impl IsAny for SyntaxError
 
 ///|
 pub impl IsValue for SyntaxError
@@ -101,7 +96,6 @@ pub impl IsObject for SyntaxError
 pub impl IsError for SyntaxError
 
 ///|
-pub impl IsAny for TypeError
 
 ///|
 pub impl IsValue for TypeError
@@ -113,7 +107,6 @@ pub impl IsObject for TypeError
 pub impl IsError for TypeError
 
 ///|
-pub impl IsAny for URIError
 
 ///|
 pub impl IsValue for URIError
@@ -125,7 +118,6 @@ pub impl IsObject for URIError
 pub impl IsError for URIError
 
 ///|
-pub impl IsAny for AggregateError
 
 ///|
 pub impl IsValue for AggregateError
@@ -137,7 +129,6 @@ pub impl IsObject for AggregateError
 pub impl IsError for AggregateError
 
 ///|
-pub impl IsAny for InternalError
 
 ///|
 pub impl IsValue for InternalError
