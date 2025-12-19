@@ -29,7 +29,7 @@ pub(all) suberror InvalidCast (SourceLoc, Value, String?)
 pub(all) suberror InvalidField (SourceLoc, Value, String)
 
 ///|
-pub suberror RuntimeError Value
+// pub suberror RuntimeError Value
 
 ///|
 pub suberror UnwrapNull SourceLoc

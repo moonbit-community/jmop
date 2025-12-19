@@ -60,7 +60,9 @@ pub fn[A, B] Promise::map(
     }
   }
 
-  let reject : (Error) -> Value = fn(_e) { identity(undefined()) }
+  let reject : (Error) -> Value = fn(_e) {
+    identity((undefined() : Optional[Int]))
+  }
   ffi_promise_then(x, f, reject) |> identity
 }
 
