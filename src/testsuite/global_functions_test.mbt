@@ -50,6 +50,11 @@ test "new creates object with constructor" {
 
 ///|
 test "no_raise converts raising function" {
-  let result = @jmop.no_raise(fn() -> Int raise { 42 })
+  let result = @jmop.no_raise(fn() -> Int raise {
+    if false {
+      raise @jmop.Error_::new("unused error type")
+    }
+    42
+  })
   inspect(result, content="42")
 }

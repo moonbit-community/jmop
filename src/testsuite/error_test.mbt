@@ -11,7 +11,7 @@ test "Error_::new with cause" {
   let err = @jmop.Error_::new("wrapped error", cause=cause_value)
   inspect(err.get_message(), content="wrapped error")
   let cause = err.get_cause()
-  inspect(cause.to_option().is_empty(), content="false")
+  inspect(cause.to_option() is None, content="false")
 }
 
 ///|
