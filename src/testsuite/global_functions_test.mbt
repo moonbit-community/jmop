@@ -52,11 +52,7 @@ test "new creates object with constructor" {
 test "no_raise converts raising function" {
   let result = @jmop.no_raise(fn() -> Int raise {
     if false {
-      raise @jmop.ArityMismatch({
-        function: @jmop.global_this.get("Array").to_function(),
-        expected: 1,
-        provided: 2,
-      })
+      fail("unused error type")
     }
     42
   })
