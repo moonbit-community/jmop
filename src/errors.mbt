@@ -1,44 +1,70 @@
 ///|
-pub suberror EvalError Error_
+pub suberror EvalError {
+  EvalError(Error_)
+}
 
 ///|
-pub suberror RangeError Error_
+pub suberror RangeError {
+  RangeError(Error_)
+}
 
 ///|
-pub suberror TypeError Error_
+pub suberror TypeError {
+  TypeError(Error_)
+}
 
 ///|
-pub suberror ReferenceError Error_
+pub suberror ReferenceError {
+  ReferenceError(Error_)
+}
 
 ///|
-pub suberror SyntaxError Error_
+pub suberror SyntaxError {
+  SyntaxError(Error_)
+}
 
 ///|
-pub suberror URIError Error_
+pub suberror URIError {
+  URIError(Error_)
+}
 
 ///|
-pub suberror AggregateError Error_
+pub suberror AggregateError {
+  AggregateError(Error_)
+}
 
 ///|
-pub suberror InternalError Error_
+pub suberror InternalError {
+  InternalError(Error_)
+}
 
 ///|
-pub(all) suberror InvalidCast (SourceLoc, Value, String?)
+pub(all) suberror InvalidCast {
+  InvalidCast((SourceLoc, Value, String?))
+}
 
 ///|
-pub(all) suberror InvalidField (SourceLoc, Value, String)
+pub(all) suberror InvalidField {
+  InvalidField((SourceLoc, Value, String))
+}
 
 ///|
 // pub suberror RuntimeError Value
 
 ///|
-pub suberror UnwrapNull SourceLoc
+pub suberror UnwrapNull {
+  UnwrapNull(SourceLoc)
+}
 
 ///|
-pub suberror UnwrapUndefined SourceLoc
+pub suberror UnwrapUndefined {
+  UnwrapUndefined(SourceLoc)
+}
 
 ///|
-pub suberror InvalidNestedPromise SourceLoc
+pub suberror InvalidNestedPromise {
+  InvalidNestedPromise(SourceLoc)
+}
 
 ///|
 pub impl Show for EvalError with output(self, buf) {

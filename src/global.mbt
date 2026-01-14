@@ -2,7 +2,9 @@
 pub let global_this : Object = ffi_global_this()
 
 ///|
-pub suberror ArityMismatch ArityMismatchInfo
+pub suberror ArityMismatch {
+  ArityMismatch(ArityMismatchInfo)
+}
 
 ///|
 pub struct ArityMismatchInfo {

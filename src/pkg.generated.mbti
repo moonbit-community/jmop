@@ -29,70 +29,98 @@ pub fn try_launch(async () -> Unit) -> Unit
 pub fn[T] unsafe_to_any(T) -> Optional[Nullable[Value]]
 
 // Errors
-pub suberror AggregateError Error_
+pub suberror AggregateError {
+  AggregateError(Error_)
+}
 pub impl IsError for AggregateError
 pub impl IsObject for AggregateError
 pub impl IsValue for AggregateError
 pub impl Show for AggregateError
 
-pub suberror ArityMismatch ArityMismatchInfo
+pub suberror ArityMismatch {
+  ArityMismatch(ArityMismatchInfo)
+}
 
 type DynCastFailed
 
-pub suberror EvalError Error_
+pub suberror EvalError {
+  EvalError(Error_)
+}
 pub impl IsError for EvalError
 pub impl IsObject for EvalError
 pub impl IsValue for EvalError
 pub impl Show for EvalError
 
-pub suberror InternalError Error_
+pub suberror InternalError {
+  InternalError(Error_)
+}
 pub impl IsError for InternalError
 pub impl IsObject for InternalError
 pub impl IsValue for InternalError
 pub impl Show for InternalError
 
-pub(all) suberror InvalidCast (SourceLoc, Value, String?)
+pub(all) suberror InvalidCast {
+  InvalidCast((SourceLoc, Value, String?))
+}
 pub impl Show for InvalidCast
 
-pub(all) suberror InvalidField (SourceLoc, Value, String)
+pub(all) suberror InvalidField {
+  InvalidField((SourceLoc, Value, String))
+}
 pub impl Show for InvalidField
 
-pub suberror InvalidNestedPromise SourceLoc
+pub suberror InvalidNestedPromise {
+  InvalidNestedPromise(SourceLoc)
+}
 pub impl Show for InvalidNestedPromise
 
-pub suberror RangeError Error_
+pub suberror RangeError {
+  RangeError(Error_)
+}
 pub impl IsError for RangeError
 pub impl IsObject for RangeError
 pub impl IsValue for RangeError
 pub impl Show for RangeError
 
-pub suberror ReferenceError Error_
+pub suberror ReferenceError {
+  ReferenceError(Error_)
+}
 pub impl IsError for ReferenceError
 pub impl IsObject for ReferenceError
 pub impl IsValue for ReferenceError
 pub impl Show for ReferenceError
 
-pub suberror SyntaxError Error_
+pub suberror SyntaxError {
+  SyntaxError(Error_)
+}
 pub impl IsError for SyntaxError
 pub impl IsObject for SyntaxError
 pub impl IsValue for SyntaxError
 pub impl Show for SyntaxError
 
-pub suberror TypeError Error_
+pub suberror TypeError {
+  TypeError(Error_)
+}
 pub impl IsError for TypeError
 pub impl IsObject for TypeError
 pub impl IsValue for TypeError
 pub impl Show for TypeError
 
-pub suberror URIError Error_
+pub suberror URIError {
+  URIError(Error_)
+}
 pub impl IsError for URIError
 pub impl IsObject for URIError
 pub impl IsValue for URIError
 pub impl Show for URIError
 
-pub suberror UnwrapNull SourceLoc
+pub suberror UnwrapNull {
+  UnwrapNull(SourceLoc)
+}
 
-pub suberror UnwrapUndefined SourceLoc
+pub suberror UnwrapUndefined {
+  UnwrapUndefined(SourceLoc)
+}
 pub impl Show for UnwrapUndefined
 
 // Types and methods
