@@ -4,7 +4,9 @@ pub(open) trait DynCast: IsValue {
 }
 
 ///|
-suberror DynCastFailed String?
+suberror DynCastFailed {
+  DynCastFailed(String?)
+}
 
 ///|
 pub fn[T] fail_cast(target? : String) -> T raise DynCastFailed {
