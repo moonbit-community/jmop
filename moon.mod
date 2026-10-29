@@ -1,0 +1,17 @@
+name = "Yoorkin/jmop"
+
+version = "0.1.1"
+
+readme = "README.md"
+
+repository = "https://github.com/moonbit-community/jmop"
+
+license = "Apache-2.0"
+
+keywords = [ "js", "ffi", "web" ]
+
+description = "A safe JavaScript interop tool."
+
+preferred_target = "js"
+
+source = "src"

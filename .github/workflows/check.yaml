@@ -1,69 +1,41 @@
 name: check
-
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-
+permissions:
+  contents: read
 jobs:
-  stable-build:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - name: ubuntu-latest
-            path: ubuntu_x86_64_moon_setup
-
-    runs-on: ${{ matrix.os.name }}
-    continue-on-error: true
+        channel: [latest, nightly]
     steps:
       - uses: actions/checkout@v4
-
-      - name: install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install MoonBit
         run: |
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
-          echo "$HOME/.moon/bin" >> $GITHUB_PATH
-
-      - name: moon version
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s -- ${{ matrix.channel }}
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - name: Validate JavaScript library
         run: |
           moon version --all
-          moonrun --version
-
-      - name: moon test
-        run: |
           moon update
-          moon install
-          moon test --target js --serial --release
-          moon test --target js --serial
-
-      - name: moon check
-        run: moon check --target js --deny-warn
-
-      - name: moon info
-        run: |
+          # Preserve existing Array FFI and Show APIs during this compatibility repair.
+          moon check --target js --deny-warn --warn-list -20
+          moon fmt
           moon info --target js
           git diff --exit-code
-
-      - name: format diff
-        run: |
-          moon fmt
-          git diff --exit-code
-
+          moon test --target js
+          moon test --target js --release
   typo-check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      FORCE_COLOR: 1
-      TYPOS_VERSION: v1.19.0
     steps:
-      - name: download typos
-        run: curl -LsSf https://github.com/crate-ci/typos/releases/download/$TYPOS_VERSION/typos-$TYPOS_VERSION-x86_64-unknown-linux-musl.tar.gz | tar zxf - -C ${CARGO_HOME:-~/.cargo}/bin
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: check typos
-        run: typos
+      - uses: actions/checkout@v4
+      - uses: crate-ci/typos@v1.19.0

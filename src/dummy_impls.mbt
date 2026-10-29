@@ -67,6 +67,7 @@ pub impl IsStringOrFunctionOrObject for String
 // Symbol impls
 pub impl IsValue for Symbol
 pub impl IsSymbol for Symbol
+pub impl IsStringOrSymbol for Symbol
 
 // SyntaxError impls
 pub impl IsValue for SyntaxError

@@ -70,7 +70,7 @@ test "Object IsValue implementation" {
 
 ///|
 test "Object::new creates object from Map" {
-  let map : Map[String, &@jmop.IsValue] = {}
+  let map : Map[String, &@jmop.IsValue] = Map([])
   map["name"] = "test"
   map["value"] = 42
   let obj = @jmop.Object::new(map)
@@ -133,7 +133,7 @@ test "Object::get_function retrieves function property" {
 test "Object::get_array retrieves array property" {
   let obj = @jmop.Object::empty()
   obj.set("arr", [1, 2, 3])
-  let result : Array[Int] = obj.get_array("arr")
+  let result : Array[Int32] = obj.get_array("arr")
   inspect(result.length(), content="3")
 }
 

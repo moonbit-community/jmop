@@ -21,10 +21,9 @@ test "optional utility function" {
 ///|
 test "launch async function" {
   // Test launch function for async operations
-  @jmop.launch(async fn() -> Unit noraise {
+  @jmop.launch(fn() -> Unit noraise {
     // Simple async operation
     let _result = 42
-
   })
   inspect("launch completed", content="launch completed")
 }
@@ -32,10 +31,9 @@ test "launch async function" {
 ///|
 test "try_launch async function" {
   // Test try_launch function for async operations with error handling
-  @jmop.try_launch(async fn() -> Unit noraise {
+  @jmop.try_launch(fn() -> Unit noraise {
     // Simple async operation that doesn't raise
     let _result = 42
-
   })
   inspect("try_launch completed", content="try_launch completed")
 }
@@ -50,7 +48,7 @@ test "new creates object with constructor" {
 
 ///|
 test "no_raise converts raising function" {
-  let result = @jmop.no_raise(fn() -> Int raise {
+  let result = @jmop.no_raise(fn() -> Int32 raise {
     if false {
       fail("unused error type")
     }

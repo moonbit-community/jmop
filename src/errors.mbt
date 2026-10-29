@@ -67,47 +67,47 @@ pub suberror InvalidNestedPromise {
 }
 
 ///|
-pub impl Show for EvalError with output(self, buf) {
+pub impl Show for EvalError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for RangeError with output(self, buf) {
+pub impl Show for RangeError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for TypeError with output(self, buf) {
+pub impl Show for TypeError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for ReferenceError with output(self, buf) {
+pub impl Show for ReferenceError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for SyntaxError with output(self, buf) {
+pub impl Show for SyntaxError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for URIError with output(self, buf) {
+pub impl Show for URIError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for AggregateError with output(self, buf) {
+pub impl Show for AggregateError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for InternalError with output(self, buf) {
+pub impl Show for InternalError with fn output(self, buf) {
   self.as_error().output(buf)
 }
 
 ///|
-pub impl Show for InvalidNestedPromise with output(self, buf) {
+pub impl Show for InvalidNestedPromise with fn output(self, buf) {
   let InvalidNestedPromise(loc) = self
   print_error(
     buf,
@@ -118,7 +118,7 @@ pub impl Show for InvalidNestedPromise with output(self, buf) {
 }
 
 ///|
-pub impl Show for UnwrapUndefined with output(self, buf) {
+pub impl Show for UnwrapUndefined with fn output(self, buf) {
   let UnwrapUndefined(loc) = self
   print_error(
     buf,
@@ -129,7 +129,7 @@ pub impl Show for UnwrapUndefined with output(self, buf) {
 }
 
 ///|
-pub impl Show for InvalidCast with output(self, buf) {
+pub impl Show for InvalidCast with fn output(self, buf) {
   let InvalidCast((loc, value, target)) = self
   print_error(
     buf,
@@ -140,7 +140,7 @@ pub impl Show for InvalidCast with output(self, buf) {
 }
 
 ///|
-pub impl Show for InvalidField with output(self, buf) {
+pub impl Show for InvalidField with fn output(self, buf) {
   let InvalidField((loc, value, field)) = self
   print_error(
     buf,
@@ -153,8 +153,8 @@ pub impl Show for InvalidField with output(self, buf) {
 ///|
 priv struct Loc {
   file : String
-  start : (Int, Int)
-  end : (Int, Int)
+  start : (Int32, Int32)
+  end : (Int32, Int32)
 }
 
 ///|
@@ -162,13 +162,13 @@ fn parse_loc(loc : SourceLoc) -> Loc {
   let s = loc.to_string()
   match s.split(":").collect() {
     [file, line1, m, col2] if m.split("-").collect() is [col1, line2] => {
-      let line1 = @strconv.parse_int(line1) catch { StrConvError(_) => 0 }
-      let col1 = @strconv.parse_int(col1) catch { StrConvError(_) => 0 }
-      let line2 = @strconv.parse_int(line2) catch { StrConvError(_) => 0 }
-      let col2 = @strconv.parse_int(col2) catch { StrConvError(_) => 0 }
-      { file: file.to_string(), start: (line1, col1), end: (line2, col2) }
+      let line1 = @string.parse_int(line1) catch { _ => 0 }
+      let col1 = @string.parse_int(col1) catch { _ => 0 }
+      let line2 = @string.parse_int(line2) catch { _ => 0 }
+      let col2 = @string.parse_int(col2) catch { _ => 0 }
+      { file: file.to_owned(), start: (line1, col1), end: (line2, col2), }
     }
-    _ => { file: "", start: (0, 0), end: (0, 0) }
+    _ => { file: "", start: (0, 0), end: (0, 0), }
   }
 }
 
@@ -185,7 +185,7 @@ fn print_error(
       ..write_string("Error (@jmop.")
       ..write_string(err)
       ..write_string("): ")
-      ..write_string(msg)
+      .write_string(msg)
     Some(loc) => {
       let loc = parse_loc(loc)
       ignore(loc.start)
@@ -195,7 +195,7 @@ fn print_error(
       ..write_string(") at \"")
       ..write_string("\{loc.file}:\{loc.end.0}:\{loc.end.1-1}")
       ..write_string("\": ")
-      ..write_string(msg)
+      .write_string(msg)
     }
   }
 }

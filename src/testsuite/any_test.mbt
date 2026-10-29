@@ -21,7 +21,7 @@ test "Any from with arrays and unwrap" {
   let arr = [1, 2, 3]
   let any_arr : @jmop.Any = @jmop.unsafe_to_any(arr)
   let val_arr = @jmop.any_unwrap(any_arr)
-  let back_arr : Array[Int] = val_arr.to_array()
+  let back_arr : Array[Int32] = val_arr.to_array()
   inspect(back_arr.length(), content="3")
   inspect(back_arr[0], content="1")
   inspect(back_arr[1], content="2")

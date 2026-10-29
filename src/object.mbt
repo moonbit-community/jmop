@@ -32,7 +32,7 @@ pub fn Object::self(self : Self) -> Self {
 
 ///|
 pub fn Object::assign(self : Self, sources : Array[&IsObject]) -> Unit {
-  ffi_object_assign(self.as_value(), sources.map(x => x.as_value()))
+  ffi_object_assign(self.as_value(), sources.map(x => IsValue::as_value(x)))
 }
 
 ///|
@@ -47,7 +47,7 @@ pub fn Object::freeze(self : Self) -> Unit {
 
 ///|
 pub fn Object::has_own(self : Self, prop : &IsStringOrSymbol) -> Bool {
-  ffi_object_has_own(self.as_value(), prop.as_value())
+  ffi_object_has_own(self.as_value(), IsValue::as_value(prop))
 }
 
 ///|
@@ -59,7 +59,7 @@ pub fn Object::set(
   loc~ : SourceLoc,
 ) -> Unit raise {
   convert_error(loc, fn() {
-    ffi_object_set(self.as_value(), k.as_value(), v.as_value())
+    ffi_object_set(self.as_value(), IsValue::as_value(k), v.as_value())
   })
 }
 
@@ -70,7 +70,7 @@ pub fn Object::get(
   prop : &IsStringOrSymbol,
   loc~ : SourceLoc,
 ) -> Value raise {
-  ffi_object_get(self.as_value(), prop.as_value()).unwrap_value(loc~)
+  ffi_object_get(self.as_value(), IsValue::as_value(prop)).unwrap_value(loc~)
 }
 
 ///|
@@ -179,7 +179,7 @@ pub fn Object::instance_of(
   self : Self,
   ctor : &IsStringOrFunctionOrObject,
 ) -> Bool {
-  let ctor = ctor.as_value()
+  let ctor = IsValue::as_value(ctor)
   let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
       InvalidCast(_) => ctor
       _ => panic()

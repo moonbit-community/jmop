@@ -9,8 +9,8 @@ pub suberror ArityMismatch {
 ///|
 pub struct ArityMismatchInfo {
   function : Function
-  expected : Int
-  provided : Int
+  expected : Int32
+  provided : Int32
 }
 
 ///|
