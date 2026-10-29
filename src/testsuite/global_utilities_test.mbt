@@ -4,8 +4,8 @@ test "Global dyn_cast function" {
   let int_value = @jmop.any_unwrap(@jmop.unsafe_to_any(42))
   let array_value = @jmop.any_unwrap(@jmop.unsafe_to_any([1, 2, 3]))
   let cast_string : String = @jmop.dyn_cast(string_value)
-  let cast_int : Int = @jmop.dyn_cast(int_value)
-  let cast_array : Array[Int] = @jmop.dyn_cast(array_value)
+  let cast_int : Int32 = @jmop.dyn_cast(int_value)
+  let cast_array : Array[Int32] = @jmop.dyn_cast(array_value)
   inspect(cast_string, content="hello")
   inspect(cast_int, content="42")
   inspect(cast_array, content="[1, 2, 3]")
@@ -13,7 +13,7 @@ test "Global dyn_cast function" {
 
 ///|
 test "Global launch function" {
-  @jmop.launch(async fn() noraise {  },
+  @jmop.launch(fn() noraise {  },
     // Async function execution
   )
   inspect("Launch function called", content="Launch function called")
@@ -21,7 +21,7 @@ test "Global launch function" {
 
 ///|
 test "Global try_launch function" {
-  @jmop.try_launch(async fn() noraise {  },
+  @jmop.try_launch(fn() noraise {  },
     // Simple async function without errors
   )
   inspect("try_launch function called", content="try_launch function called")

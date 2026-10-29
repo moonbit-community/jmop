@@ -4,22 +4,22 @@ pub type Value
 
 ///|
 pub(open) trait IsValue {
-  as_value(Self) -> Value = _
-  as_any(Self) -> Any = _
+  fn as_value(Self) -> Value = _
+  fn as_any(Self) -> Any = _
 }
 
 ///|
-pub impl Show for Value with output(self, buf) {
+pub impl Show for Value with fn output(self, buf) {
   buf.write_string(ffi_to_string(self))
 }
 
 ///|
-impl IsValue with as_value(self) {
+impl IsValue with fn as_value(self) {
   self |> identity
 }
 
 ///|
-impl IsValue with as_any(self) {
+impl IsValue with fn as_any(self) {
   identity(self.as_value())
 }
 
@@ -156,7 +156,7 @@ pub fn Value::instance_of(
   self : Self,
   ctor : &IsStringOrFunctionOrObject,
 ) -> Bool {
-  let ctor = ctor.as_value()
+  let ctor = IsValue::as_value(ctor)
   let ctor = global_this.get_function(ctor.to_string()).as_value() catch {
       InvalidCast(_) => ctor
       _ => panic()

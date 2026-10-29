@@ -61,7 +61,7 @@ test "Function get_length returns parameter count" {
 
 ///|
 test "Function new converts MoonBit function" {
-  fn moonbit_func(x : Int) -> Int {
+  fn moonbit_func(x : Int32) -> Int32 {
     x + 1
   }
 

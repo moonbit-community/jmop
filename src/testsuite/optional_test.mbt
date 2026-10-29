@@ -7,7 +7,7 @@ test "Optional::from creates defined Optional" {
 
 ///|
 test "Optional::undefined creates undefined Optional" {
-  let undefined : @jmop.Optional[Int] = @jmop.Optional::undefined()
+  let undefined : @jmop.Optional[Int32] = @jmop.Optional::undefined()
   try {
     let _ = undefined.unwrap()
     inspect(false, content="true")
@@ -43,14 +43,14 @@ test "Optional::unwrap_value converts Nullable Value" {
 
 ///|
 test "optional global function creates Optional" {
-  let optional : @jmop.Optional[Int] = @jmop.optional(456)
-  let unwrapped : Int = optional.unwrap()
+  let optional : @jmop.Optional[Int32] = @jmop.optional(456)
+  let unwrapped : Int32 = optional.unwrap()
   inspect(unwrapped, content="456")
 }
 
 ///|
 test "Optional::from_option converts Some" {
-  let opt : Int? = Some(123)
+  let opt : Int32? = Some(123)
   let optional = @jmop.Optional::from_option(opt)
   let unwrapped = optional.unwrap()
   inspect(unwrapped, content="123")
@@ -58,12 +58,14 @@ test "Optional::from_option converts Some" {
 
 ///|
 test "Optional::from_option converts None to undefined" {
-  let opt : Int? = None
+  let opt : Int32? = None
   let optional = @jmop.Optional::from_option(opt)
   inspect(
-    try? optional.unwrap(),
+    Ok(optional.unwrap()) catch {
+      e => Err(e)
+    },
     content=(
-      #|Err(Error (@jmop.UnwrapUndefined) at "testsuite_blackbox_test/optional_test.mbt:64:-1": cannot unwrap undefined)
+      #|Err(Error (@jmop.UnwrapUndefined) at "src/testsuite/optional_test.mbt:64:-1": cannot unwrap undefined)
     ),
   )
 }

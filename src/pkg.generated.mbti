@@ -32,6 +32,16 @@ pub fn[T] unsafe_to_any(T) -> Optional[Nullable[Value]]
 pub suberror AggregateError {
   AggregateError(Error_)
 }
+pub fn AggregateError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn AggregateError::as_error(Self) -> Error_
+pub fn AggregateError::as_value(Self) -> Value
+pub fn AggregateError::get_cause(Self) -> Optional[Value]
+pub fn AggregateError::get_message(Self) -> String
+pub fn AggregateError::get_name(Self) -> String
+pub fn AggregateError::get_source_loc(Self) -> SourceLoc?
+pub fn AggregateError::output(Self, &Logger) -> Unit
+pub fn AggregateError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn AggregateError::to_string(Self) -> String
 pub impl IsError for AggregateError
 pub impl IsObject for AggregateError
 pub impl IsValue for AggregateError
@@ -46,6 +56,16 @@ type DynCastFailed
 pub suberror EvalError {
   EvalError(Error_)
 }
+pub fn EvalError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn EvalError::as_error(Self) -> Error_
+pub fn EvalError::as_value(Self) -> Value
+pub fn EvalError::get_cause(Self) -> Optional[Value]
+pub fn EvalError::get_message(Self) -> String
+pub fn EvalError::get_name(Self) -> String
+pub fn EvalError::get_source_loc(Self) -> SourceLoc?
+pub fn EvalError::output(Self, &Logger) -> Unit
+pub fn EvalError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn EvalError::to_string(Self) -> String
 pub impl IsError for EvalError
 pub impl IsObject for EvalError
 pub impl IsValue for EvalError
@@ -54,6 +74,16 @@ pub impl Show for EvalError
 pub suberror InternalError {
   InternalError(Error_)
 }
+pub fn InternalError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn InternalError::as_error(Self) -> Error_
+pub fn InternalError::as_value(Self) -> Value
+pub fn InternalError::get_cause(Self) -> Optional[Value]
+pub fn InternalError::get_message(Self) -> String
+pub fn InternalError::get_name(Self) -> String
+pub fn InternalError::get_source_loc(Self) -> SourceLoc?
+pub fn InternalError::output(Self, &Logger) -> Unit
+pub fn InternalError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn InternalError::to_string(Self) -> String
 pub impl IsError for InternalError
 pub impl IsObject for InternalError
 pub impl IsValue for InternalError
@@ -62,21 +92,37 @@ pub impl Show for InternalError
 pub(all) suberror InvalidCast {
   InvalidCast((SourceLoc, Value, String?))
 }
+pub fn InvalidCast::output(Self, &Logger) -> Unit
+pub fn InvalidCast::to_string(Self) -> String
 pub impl Show for InvalidCast
 
 pub(all) suberror InvalidField {
   InvalidField((SourceLoc, Value, String))
 }
+pub fn InvalidField::output(Self, &Logger) -> Unit
+pub fn InvalidField::to_string(Self) -> String
 pub impl Show for InvalidField
 
 pub suberror InvalidNestedPromise {
   InvalidNestedPromise(SourceLoc)
 }
+pub fn InvalidNestedPromise::output(Self, &Logger) -> Unit
+pub fn InvalidNestedPromise::to_string(Self) -> String
 pub impl Show for InvalidNestedPromise
 
 pub suberror RangeError {
   RangeError(Error_)
 }
+pub fn RangeError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn RangeError::as_error(Self) -> Error_
+pub fn RangeError::as_value(Self) -> Value
+pub fn RangeError::get_cause(Self) -> Optional[Value]
+pub fn RangeError::get_message(Self) -> String
+pub fn RangeError::get_name(Self) -> String
+pub fn RangeError::get_source_loc(Self) -> SourceLoc?
+pub fn RangeError::output(Self, &Logger) -> Unit
+pub fn RangeError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn RangeError::to_string(Self) -> String
 pub impl IsError for RangeError
 pub impl IsObject for RangeError
 pub impl IsValue for RangeError
@@ -85,6 +131,16 @@ pub impl Show for RangeError
 pub suberror ReferenceError {
   ReferenceError(Error_)
 }
+pub fn ReferenceError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn ReferenceError::as_error(Self) -> Error_
+pub fn ReferenceError::as_value(Self) -> Value
+pub fn ReferenceError::get_cause(Self) -> Optional[Value]
+pub fn ReferenceError::get_message(Self) -> String
+pub fn ReferenceError::get_name(Self) -> String
+pub fn ReferenceError::get_source_loc(Self) -> SourceLoc?
+pub fn ReferenceError::output(Self, &Logger) -> Unit
+pub fn ReferenceError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn ReferenceError::to_string(Self) -> String
 pub impl IsError for ReferenceError
 pub impl IsObject for ReferenceError
 pub impl IsValue for ReferenceError
@@ -93,6 +149,16 @@ pub impl Show for ReferenceError
 pub suberror SyntaxError {
   SyntaxError(Error_)
 }
+pub fn SyntaxError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn SyntaxError::as_error(Self) -> Error_
+pub fn SyntaxError::as_value(Self) -> Value
+pub fn SyntaxError::get_cause(Self) -> Optional[Value]
+pub fn SyntaxError::get_message(Self) -> String
+pub fn SyntaxError::get_name(Self) -> String
+pub fn SyntaxError::get_source_loc(Self) -> SourceLoc?
+pub fn SyntaxError::output(Self, &Logger) -> Unit
+pub fn SyntaxError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn SyntaxError::to_string(Self) -> String
 pub impl IsError for SyntaxError
 pub impl IsObject for SyntaxError
 pub impl IsValue for SyntaxError
@@ -101,6 +167,16 @@ pub impl Show for SyntaxError
 pub suberror TypeError {
   TypeError(Error_)
 }
+pub fn TypeError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn TypeError::as_error(Self) -> Error_
+pub fn TypeError::as_value(Self) -> Value
+pub fn TypeError::get_cause(Self) -> Optional[Value]
+pub fn TypeError::get_message(Self) -> String
+pub fn TypeError::get_name(Self) -> String
+pub fn TypeError::get_source_loc(Self) -> SourceLoc?
+pub fn TypeError::output(Self, &Logger) -> Unit
+pub fn TypeError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn TypeError::to_string(Self) -> String
 pub impl IsError for TypeError
 pub impl IsObject for TypeError
 pub impl IsValue for TypeError
@@ -109,6 +185,16 @@ pub impl Show for TypeError
 pub suberror URIError {
   URIError(Error_)
 }
+pub fn URIError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn URIError::as_error(Self) -> Error_
+pub fn URIError::as_value(Self) -> Value
+pub fn URIError::get_cause(Self) -> Optional[Value]
+pub fn URIError::get_message(Self) -> String
+pub fn URIError::get_name(Self) -> String
+pub fn URIError::get_source_loc(Self) -> SourceLoc?
+pub fn URIError::output(Self, &Logger) -> Unit
+pub fn URIError::set_source_loc(Self, SourceLoc) -> Unit
+pub fn URIError::to_string(Self) -> String
 pub impl IsError for URIError
 pub impl IsObject for URIError
 pub impl IsValue for URIError
@@ -121,21 +207,36 @@ pub suberror UnwrapNull {
 pub suberror UnwrapUndefined {
   UnwrapUndefined(SourceLoc)
 }
+pub fn UnwrapUndefined::output(Self, &Logger) -> Unit
+pub fn UnwrapUndefined::to_string(Self) -> String
 pub impl Show for UnwrapUndefined
 
 // Types and methods
 pub struct ArityMismatchInfo {
   function : Function
-  expected : Int
-  provided : Int
+  expected : Int32
+  provided : Int32
 }
 
 type Bigint
+pub fn Bigint::as_any(Self) -> Optional[Nullable[Value]]
+pub fn Bigint::as_value(Self) -> Value
 pub impl IsValue for Bigint
 
 type Error_
+pub fn Error_::as_any(Self) -> Optional[Nullable[Value]]
+pub fn Error_::as_error(Self) -> Self
+pub fn Error_::as_value(Self) -> Value
+pub fn Error_::from_value(Value) -> Self raise
+pub fn Error_::get_cause(Self) -> Optional[Value]
+pub fn Error_::get_message(Self) -> String
+pub fn Error_::get_name(Self) -> String
+pub fn Error_::get_source_loc(Self) -> SourceLoc?
 pub fn Error_::new(String, cause? : Value) -> Self
 pub fn Error_::new_with_loc(String, SourceLoc) -> Self
+pub fn Error_::output(Self, &Logger) -> Unit
+pub fn Error_::set_source_loc(Self, SourceLoc) -> Unit
+pub fn Error_::to_string(Self) -> String
 pub impl DynCast for Error_
 pub impl IsError for Error_
 pub impl IsObject for Error_
@@ -144,18 +245,24 @@ pub impl Show for Error_
 
 type Function
 pub fn Function::apply(Self, Value, Array[&IsValue]) -> Value
+pub fn Function::as_any(Self) -> Optional[Nullable[Value]]
+pub fn Function::as_value(Self) -> Value
 pub fn Function::bind(Self, Value) -> Self
 pub fn Function::call(Self, Array[&IsValue]) -> Value
 pub fn Function::from_code(Array[String], String) -> Self
-pub fn Function::get_length(Self) -> Int
+pub fn Function::get_length(Self) -> Int32
 pub fn Function::get_name(Self) -> String
 #callsite(autofill(loc))
 pub fn[F] Function::new(F, loc~ : SourceLoc) -> Self raise
+pub fn Function::output(Self, &Logger) -> Unit
+pub fn Function::to_string(Self) -> String
 pub impl IsStringOrFunctionOrObject for Function
 pub impl IsValue for Function
 pub impl Show for Function
 
 pub type JsTypeError
+pub fn JsTypeError::as_any(Self) -> Optional[Nullable[Value]]
+pub fn JsTypeError::as_value(Self) -> Value
 pub impl IsObject for JsTypeError
 pub impl IsValue for JsTypeError
 
@@ -171,6 +278,8 @@ pub fn[T] Nullable::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapNull
 pub fn Nullable::unwrap_value(Self[Optional[Value]], loc~ : SourceLoc) -> Value raise
 
 pub type Object
+pub fn Object::as_any(Self) -> Optional[Nullable[Value]]
+pub fn Object::as_value(Self) -> Value
 pub fn Object::assign(Self, Array[&IsObject]) -> Unit
 #callsite(autofill(loc))
 pub fn Object::call(Self, &IsStringOrSymbol, Array[&IsValue], loc~ : SourceLoc) -> Value raise
@@ -220,6 +329,8 @@ pub fn[T] Optional::unwrap(Self[T], loc~ : SourceLoc) -> T raise UnwrapUndefined
 pub fn Optional::unwrap_value(Self[Nullable[Value]], loc~ : SourceLoc) -> Value raise
 
 type Promise[T]
+pub fn[T : IsValue] Promise::as_any(Self[T]) -> Optional[Nullable[Value]]
+pub fn[T : IsValue] Promise::as_value(Self[T]) -> Value
 pub fn[A, B] Promise::bind(Self[A], (A) -> Self[B] raise, reject? : (Error) -> Self[B]) -> Self[B]
 pub fn[A, B] Promise::catch_(Self[A], (Error) -> Self[B]) -> Self[B]
 #callsite(autofill(loc))
@@ -233,13 +344,19 @@ pub async fn[A] Promise::wait(Self[A]) -> A
 pub impl[T : IsValue] IsValue for Promise[T]
 
 type Symbol
+pub fn Symbol::as_any(Self) -> Optional[Nullable[Value]]
+pub fn Symbol::as_value(Self) -> Value
+pub impl IsStringOrSymbol for Symbol
 pub impl IsSymbol for Symbol
 pub impl IsValue for Symbol
 
 pub type Value
+pub fn Value::as_any(Self) -> Optional[Nullable[Self]]
 pub fn Value::as_value(Self) -> Self
+pub fn Value::from_value(Self) -> Self raise
 pub fn Value::get_type(Self) -> String
 pub fn Value::instance_of(Self, &IsStringOrFunctionOrObject) -> Bool
+pub fn Value::output(Self, &Logger) -> Unit
 #callsite(autofill(loc))
 pub fn[T : DynCast] Value::to_array(Self, loc~ : SourceLoc) -> Array[T] raise
 #callsite(autofill(loc))
@@ -267,21 +384,21 @@ pub type Any = Optional[Nullable[Value]]
 
 // Traits
 pub(open) trait DynCast : IsValue {
-  from_value(Value) -> Self raise
+  fn from_value(Value) -> Self raise
 }
 pub impl DynCast for Bool
-pub impl DynCast for Int
+pub impl DynCast for Int32
 pub impl DynCast for Double
 pub impl DynCast for String
 pub impl[T : DynCast] DynCast for Array[T]
 
 pub trait IsError : IsObject {
-  as_error(Self) -> Error_
-  get_name(Self) -> String
-  get_message(Self) -> String
-  get_cause(Self) -> Optional[Value]
-  get_source_loc(Self) -> SourceLoc?
-  set_source_loc(Self, SourceLoc) -> Unit
+  fn as_error(Self) -> Error_
+  fn get_name(Self) -> String
+  fn get_message(Self) -> String
+  fn get_cause(Self) -> Optional[Value]
+  fn get_source_loc(Self) -> SourceLoc?
+  fn set_source_loc(Self, SourceLoc) -> Unit
 }
 
 pub trait IsObject : IsValue {
@@ -295,7 +412,7 @@ pub trait IsStringOrFunctionOrObject : IsValue {
 }
 pub impl IsStringOrFunctionOrObject for String
 
-pub trait IsStringOrSymbol : IsString + IsSymbol {
+pub trait IsStringOrSymbol : IsValue {
 }
 pub impl IsStringOrSymbol for String
 
@@ -303,13 +420,12 @@ pub(open) trait IsSymbol {
 }
 
 pub(open) trait IsValue {
-  as_value(Self) -> Value = _
-  as_any(Self) -> Optional[Nullable[Value]] = _
+  fn as_value(Self) -> Value = _
+  fn as_any(Self) -> Optional[Nullable[Value]] = _
 }
 pub impl IsValue for Unit
 pub impl IsValue for Bool
-pub impl IsValue for Int
+pub impl IsValue for Int32
 pub impl IsValue for Double
 pub impl IsValue for String
 pub impl[T : IsValue] IsValue for Array[T]
-

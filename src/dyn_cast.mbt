@@ -1,6 +1,6 @@
 ///|
 pub(open) trait DynCast: IsValue {
-  from_value(Value) -> Self raise
+  fn from_value(Value) -> Self raise
 }
 
 ///|
@@ -23,40 +23,40 @@ pub fn[T : DynCast] dyn_cast(x : &IsValue, loc~ : SourceLoc) -> T raise {
 }
 
 ///|
-pub impl DynCast for Value with from_value(value) {
+pub impl DynCast for Value with fn from_value(value) {
   value
 }
 
 ///|
-pub impl DynCast for Double with from_value(value) {
+pub impl DynCast for Double with fn from_value(value) {
   value.to_number() catch {
     InvalidCast((_, _, target)) => fail_cast(target?)
   }
 }
 
 ///|
-pub impl DynCast for Int with from_value(value) {
+pub impl DynCast for Int32 with fn from_value(value) {
   value.to_number().to_int() catch {
     InvalidCast((_, _, target)) => fail_cast(target?)
   }
 }
 
 ///|
-pub impl DynCast for Bool with from_value(value) {
+pub impl DynCast for Bool with fn from_value(value) {
   value.to_boolean() catch {
     InvalidCast((_, _, target)) => fail_cast(target?)
   }
 }
 
 ///|
-pub impl DynCast for String with from_value(value) {
+pub impl DynCast for String with fn from_value(value) {
   value.to_string() catch {
     InvalidCast((_, _, target)) => fail_cast(target?)
   }
 }
 
 ///|
-pub impl[T : DynCast] DynCast for Array[T] with from_value(value) {
+pub impl[T : DynCast] DynCast for Array[T] with fn from_value(value) {
   value.to_array() catch {
     InvalidCast((_, _, target)) => fail_cast(target?)
     e => raise e

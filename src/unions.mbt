@@ -1,6 +1,6 @@
 ///|
 /// String | Symbol
-pub trait IsStringOrSymbol: IsString + IsSymbol {}
+pub trait IsStringOrSymbol: IsValue {}
 
 ///|
 /// Function | Object

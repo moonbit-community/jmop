@@ -3,7 +3,7 @@
 type Function
 
 ///|
-pub impl Show for Function with output(self, buf) {
+pub impl Show for Function with fn output(self, buf) {
   buf.write_string(ffi_function_to_string(self))
 }
 

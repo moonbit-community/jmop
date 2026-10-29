@@ -7,17 +7,17 @@ test "Nullable from creates non-null Nullable" {
 
 ///|
 test "Nullable null creates null Nullable" {
-  let null_value : @jmop.Nullable[Int] = @jmop.Nullable::null()
-  let option : Int? = null_value.to_option()
+  let null_value : @jmop.Nullable[Int32] = @jmop.Nullable::null()
+  let option : Int32? = null_value.to_option()
   inspect(option, content="None")
 }
 
 ///|
 test "Nullable to_option converts to Option" {
-  let nullable_some : @jmop.Nullable[Int] = @jmop.Nullable::from(42)
-  let nullable_none : @jmop.Nullable[Int] = @jmop.Nullable::null()
-  let option_some : Int? = nullable_some.to_option()
-  let option_none : Int? = nullable_none.to_option()
+  let nullable_some : @jmop.Nullable[Int32] = @jmop.Nullable::from(42)
+  let nullable_none : @jmop.Nullable[Int32] = @jmop.Nullable::null()
+  let option_some : Int32? = nullable_some.to_option()
+  let option_none : Int32? = nullable_none.to_option()
   inspect(option_some, content="Some(42)")
   inspect(option_none, content="None")
 }
@@ -36,8 +36,8 @@ test "Nullable unwrap with null throws UnwrapNull" {
 
 ///|
 test "nullable global function creates Nullable" {
-  let nullable : @jmop.Nullable[Int] = @jmop.nullable(123)
-  let unwrapped : Int = nullable.unwrap()
+  let nullable : @jmop.Nullable[Int32] = @jmop.nullable(123)
+  let unwrapped : Int32 = nullable.unwrap()
   inspect(unwrapped, content="123")
 }
 

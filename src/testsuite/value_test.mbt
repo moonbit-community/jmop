@@ -60,7 +60,7 @@ test "Value::to_function converts function" {
 ///|
 test "Value::to_array converts array" {
   let arr_val : @jmop.Value = @jmop.IsValue::as_value([1, 2, 3])
-  let result : Array[Int] = arr_val.to_array()
+  let result : Array[Int32] = arr_val.to_array()
   inspect(result.length(), content="3")
 }
 
