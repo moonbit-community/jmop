@@ -61,8 +61,8 @@ test "Optional::from_option converts None to undefined" {
   let opt : Int32? = None
   let optional = @jmop.Optional::from_option(opt)
   inspect(
-    Ok(optional.unwrap()) catch {
-      e => Err(e)
+    "Ok(\{optional.unwrap()})" catch {
+      e => "Err(\{e})"
     },
     content=(
       #|Err(Error (@jmop.UnwrapUndefined) at "src/testsuite/optional_test.mbt:64:-1": cannot unwrap undefined)
@@ -74,5 +74,5 @@ test "Optional::from_option converts None to undefined" {
 test "Optional::to_option converts to Option" {
   let optional = @jmop.Optional::from(42)
   let opt = optional.to_option()
-  inspect(opt, content="Some(42)")
+  debug_inspect(opt, content="Some(42)")
 }

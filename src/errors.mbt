@@ -131,6 +131,10 @@ pub impl Show for UnwrapUndefined with fn output(self, buf) {
 ///|
 pub impl Show for InvalidCast with fn output(self, buf) {
   let InvalidCast((loc, value, target)) = self
+  let target = match target {
+    Some(name) => "Some(\{name})"
+    None => "None"
+  }
   print_error(
     buf,
     Some(loc),

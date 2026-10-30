@@ -32,7 +32,10 @@ pub fn Object::self(self : Self) -> Self {
 
 ///|
 pub fn Object::assign(self : Self, sources : Array[&IsObject]) -> Unit {
-  ffi_object_assign(self.as_value(), sources.map(x => IsValue::as_value(x)))
+  ffi_object_assign(
+    self.as_value(),
+    FixedArray::from_array(sources.map(x => IsValue::as_value(x))),
+  )
 }
 
 ///|

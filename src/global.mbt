@@ -22,7 +22,7 @@ pub fn new(ctor : Function, args : Array[&IsValue]) -> Object raise {
       provided: args.length(),
     })
   }
-  ffi_new(ctor, args.map(x => x.as_value()))
+  ffi_new(ctor, FixedArray::from_array(args.map(x => x.as_value())))
 }
 
 ///|

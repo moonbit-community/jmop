@@ -3,5 +3,5 @@ extern "js" fn ffi_object_set(obj : Value, prop : Value, value : Value) -> Unit 
 extern "js" fn ffi_object_has_own(obj : Value, prop : Value) -> Bool = "(obj, prop) => Object.hasOwn(obj, prop)"
 extern "js" fn ffi_object_freeze(obj : Value) -> Unit = "(obj) => Object.freeze(obj)"
 extern "js" fn ffi_object_seal(obj : Value) -> Unit = "(obj) => Object.seal(obj)"
-extern "js" fn ffi_object_assign(target : Value, sources : Array[Value]) = "(target, sources) => Object.assign(target, ...sources)"
+extern "js" fn ffi_object_assign(target : Value, sources : FixedArray[Value]) = "(target, sources) => Object.assign(target, ...sources)"
 extern "js" fn ffi_object_new() -> Object = "() => new Object()"
