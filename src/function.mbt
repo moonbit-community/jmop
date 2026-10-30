@@ -11,7 +11,7 @@ pub impl Show for Function with fn output(self, buf) {
 
 ///|
 pub fn Function::from_code(args : Array[String], functionbody : String) -> Self {
-  ffi_function_new(args, functionbody)
+  ffi_function_new(FixedArray::from_array(args), functionbody)
 }
 
 ///|
@@ -23,12 +23,16 @@ pub fn[F] Function::new(f : F, loc~ : SourceLoc) -> Function raise {
 
 ///|
 pub fn Function::apply(f : Self, this : Value, args : Array[&IsValue]) -> Value {
-  ffi_function_apply(f, this.as_value(), args.map(x => x.as_value()))
+  ffi_function_apply(
+    f,
+    this.as_value(),
+    FixedArray::from_array(args.map(x => x.as_value())),
+  )
 }
 
 ///|
 pub fn Function::call(f : Self, args : Array[&IsValue]) -> Value {
-  ffi_function_call(f, args.map(x => x.as_value())).as_value()
+  ffi_function_call(f, FixedArray::from_array(args.map(x => x.as_value()))).as_value()
 }
 
 ///|

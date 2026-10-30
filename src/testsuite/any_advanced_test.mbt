@@ -30,7 +30,7 @@ test "Any unwrap with undefined handling" {
 test "any_to_option with valid value" {
   let any_val : @jmop.Any = @jmop.unsafe_to_any(42)
   let result : Int32? = @jmop.any_to_option(any_val)
-  inspect(result, content="Some(42)")
+  debug_inspect(result, content="Some(42)")
 }
 
 ///|
@@ -38,5 +38,5 @@ test "any_to_option with null returns None" {
   let null_val : @jmop.Nullable[@jmop.Value] = @jmop.Nullable::null()
   let any_null : @jmop.Any = @jmop.unsafe_to_any(null_val)
   let result : Int32? = @jmop.any_to_option(any_null)
-  inspect(result, content="None")
+  debug_inspect(result, content="None")
 }

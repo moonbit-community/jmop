@@ -8,7 +8,7 @@ test "Global dyn_cast function" {
   let cast_array : Array[Int32] = @jmop.dyn_cast(array_value)
   inspect(cast_string, content="hello")
   inspect(cast_int, content="42")
-  inspect(cast_array, content="[1, 2, 3]")
+  debug_inspect(cast_array, content="[1, 2, 3]")
 }
 
 ///|
